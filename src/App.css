@@ -1,7 +1,13 @@
 *{
   padding: 0;
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  /* font-family: 'Manrope', sans-serif; */
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+body{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #111;
 }
 p{
   padding: 0;
@@ -12,6 +18,20 @@ p{
   color: #e50000;
 }
 
+.bg_red{
+  background-color:#e50000 ;
+  color: #ffffff;
+  padding: 10px 30px;
+}
+
+.bg_icon{
+  background-color: #111;
+  color: #ffffff;
+  padding: 10px 15px;
+}
+
 a{
   text-decoration: none;
+  padding: 0;
+  margin: 0;
 }

@@ -1,14 +1,12 @@
 import React from "react";
-import "./LandingBanner.css";
-import logo from "../Assets/Vector.png";
-import LandingNavbar from "./Navbars/LandingNavbar";
+import "../../Assets/Styles/LandingPage.css";
+import logo from "../../Assets/Images/Vector.png";
 import { Link } from "react-router-dom";
 
-function LandingBanner() {
+function LandingPage() {
   return (
     <div>
       <div className="landing_banner">
-        <LandingNavbar />
         <div className=" container">
           <div className="row ">
             <div className="col-lg-6 col-md-6 col-sm-12 landing_banner_left_box">
@@ -22,7 +20,7 @@ function LandingBanner() {
               <p className="landing_banner_right_box_sub_title mt-5">
                 Dive into boundless entertainment. Join DigitalCineHub now!
               </p>
-              <Link to='/user_registration' ><button className="btn btn-danger landing_banner_register_btn mt-5">
+              <Link to='/user_login' ><button className="btn btn-danger landing_banner_register_btn mt-5">
                 Start Now
               </button></Link>
             </div>
@@ -64,4 +62,4 @@ function LandingBanner() {
   );
 }
 
-export default LandingBanner;
+export default LandingPage;

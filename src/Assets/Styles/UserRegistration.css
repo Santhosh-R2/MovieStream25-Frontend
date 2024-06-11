@@ -4,7 +4,7 @@
   border-radius: 12.138px;
   border: 1px solid #fff;
   background: rgba(0, 0, 0, 0.7);
-  padding: 30px 40px;
+  padding: 10px 40px;
 }
 
 .user_reg_container p {
@@ -17,11 +17,18 @@
   text-align: center;
 }
 
-.user_reg_input_grp input {
+.landing_banner_left_box{
+  margin-top: 60px;
+}
+
+.user_reg_input_grp input, .user_reg_input_grp textarea, .user_reg_input_grp select {
   width: 100%;
   height: 40px;
   border-radius: 7.074px;
   border: 2.193px solid rgba(199, 199, 199, 0.43);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 15px;
+  color: #e5e5e5;
 }
 
 .user_reg_input_grp input[type="text"],
@@ -55,10 +62,31 @@ input[type="date"] {
 .user_reg_container h6{
     color: rgba(199, 199, 199, 0.57);
 
-font-size: 12px;
+font-size: 16px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
 letter-spacing: -0.594px;
 text-align: center;
 }
+
+.user_reg_input_grp input[type="number"]{
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 5px 15px;
+  color: #e5e5e5;
+}
+
+.user_reg_input_grp {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-60%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #e5e5e5;
+}
+

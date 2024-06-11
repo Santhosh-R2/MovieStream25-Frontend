@@ -1,12 +1,12 @@
 import React from 'react'
 import LandingNavbar from '../Navbars/LandingNavbar'
-import logo from "../../Assets/Vector.png";
+import logo from "../../Assets/Images/Vector.png";
 
 
 function AdminLogin() {
   return (
-    <div className="landing_banner">
-        <LandingNavbar/>
+    <div className="landing_banner pt-5">
+        {/* <LandingNavbar/> */}
         <div className=" container">
           <div className="row ">
             <div className="col-lg-6 col-md-6 col-sm-12 landing_banner_left_box">

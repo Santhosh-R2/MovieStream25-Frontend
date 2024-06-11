@@ -1,12 +1,12 @@
 import React from "react";
-import "./LandingNavbar.css";
-import logo from "../../Assets/Vector (1).png";
+import "../../Assets/Styles/LandingNavbar.css";
+import logo from '../../Assets/Images/Vector (1).png'
 import { Link } from "react-router-dom";
 
 function LandingNavbar() {
   return (
     <div>
-      <div className="landing_nav">
+      <div className="landing_nav"> 
         <div className="container landing_nav">
           <Link to='/'>
             <div className="landing_nav_logo">
