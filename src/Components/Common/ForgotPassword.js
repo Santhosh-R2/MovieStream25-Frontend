@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../Assets/Images/Vector.png";
 import { useFormik } from "formik";
 import { ForgotPasswordSchema } from "../Constants/Schema"; // Ensure this is the correct path
@@ -8,6 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 function ForgotPassword({ activeUser }) {
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = (values) => {
     const { confirmPassword, ...dataToSend } = values;
@@ -81,36 +87,46 @@ function ForgotPassword({ activeUser }) {
                       )}
                     </div>
 
-                    <div className="col-lg-6 col-md-6 col-sm-12 user_reg_input_grp mt-3">
-                      <input
-                        type="password"
-                        placeholder="Enter New Password"
-                        className="form-control user_inp"
-                        id="password"
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                      {errors.password && touched.password && (
-                        <span className="text-danger">{errors.password}</span>
-                      )}
-                    </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 user_reg_input_grp mt-3">
-                      <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className="form-control user_inp"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={values.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                      {errors.confirmPassword && touched.confirmPassword && (
-                        <span className="text-danger">{errors.confirmPassword}</span>
-                      )}
-                    </div>
+                    <div className="col-lg-6 col-md-6 col-sm-12 user_reg_input_grp mt-1">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Enter Your Password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <i
+                      className={`ri-eye${
+                        showPassword ? "-off" : ""
+                      }-line password-toggle-icon`}
+                      onClick={togglePasswordVisibility}
+                    ></i>
+                    {touched.password && errors.password && (
+                      <span className="text-danger">{errors.password}</span>
+                    )}
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-12 user_reg_input_grp mt-1">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <i
+                      className={`ri-eye${
+                        showPassword ? "-off" : ""
+                      }-line password-toggle-icon`}
+                      onClick={togglePasswordVisibility}
+                    ></i>
+                    {touched.confirmPassword && errors.confirmPassword && (
+                      <span className="text-danger">
+                        {errors.confirmPassword}
+                      </span>
+                    )}
+                  </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 user_reg_input_grp_btn mt-4">
                       <button type="submit" className="button_bg w-100 mt-3">
                         Reset Password

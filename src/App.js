@@ -4,8 +4,6 @@ import 'remixicon/fonts/remixicon.css'
 import {BrowserRouter,Route, Routes} from 'react-router-dom'
 import UserRegistration from './Components/User/UserRegistration';
 import UserLogin from './Components/User/UserLogin';
-import DistributorRegistration from './Components/Distributor/DistributorRegistration';
-import DistributorLogin from './Components/Distributor/DistributorLogin';
 import SupportLogin from './Components/Support/SupportLogin';
 import AdminLogin from './Components/Admin/AdminLogin';
 import Footer from './Components/Footers/Footer';
@@ -41,11 +39,6 @@ function App() {
         <Route path='/user_home' element={[<UserNavbar/>,<UserHome/>]} />
         <Route path='/user_view_single_movie' element={[<UserNavbar/>,<UserViewSingleVideo/>]} />
         {/* <Route path='/user_add_complaint' element={[<UserNavbar/>,<UserAddComplaints/>]} /> */}
-
-        {/* Distributor Routes */}
-        <Route path='/distributor_registration' element={[<LandingNavbar/>,<DistributorRegistration/>]} />
-        <Route path='/distributor_login' element={[<LandingNavbar/>,<DistributorLogin/>]} />
-        <Route path='/distributor_forgot_password' element={[<LandingNavbar/>,<ForgotPassword activeUser='distributor' />]} />
 
 
         {/* Support Routes  */}

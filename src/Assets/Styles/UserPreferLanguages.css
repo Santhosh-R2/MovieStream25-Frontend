@@ -1,8 +1,8 @@
 .user_prefer_languages {
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)),
-                linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)),
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.956), rgba(0, 0, 0, 0)),
+                linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.774)),
                 url(../../Assets/Images/banner2.jpg);
     display: flex;
     justify-content: center;
@@ -61,7 +61,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, .9), transparent);
+    /* background: linear-gradient(to top, rgba(0, 0, 0, .9), transparent); */
     pointer-events: none; /* Ensure that the overlay does not interfere with any interactions */
 }
 

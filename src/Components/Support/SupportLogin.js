@@ -33,10 +33,7 @@ function SupportLogin() {
                        
                        <button>Sign Up</button>
                     </div>
-                    {/* <div className='col-lg-12 col-md-12 col-sm-12 mt-4' >
-                       
-                       <h6>New to Cinestream? <Link to='/distributor_registration' >Sign Up Now</Link></h6>
-                    </div> */}
+                    
                 </div>
               </div>
             </div>

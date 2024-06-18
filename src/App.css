@@ -35,3 +35,23 @@ a{
   padding: 0;
   margin: 0;
 }
+
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-arrows {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 10%;
+  right: 20px;
+  transform: translateY(-10%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #e5e5e5;
+}
