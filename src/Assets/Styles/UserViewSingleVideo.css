@@ -6,6 +6,7 @@
     height: 70vh;
     width: 100%;
     position: relative;
+    padding: 0 20px;
   }
   
   .user_single_video_banner::after {

@@ -1,13 +1,24 @@
 .userLandingBanner{
-    background-size: cover;
+    /* background-size: cover; */
     height: 448px;
+    width: 100%;
     color: white;
-    /* margin-top: 70px; */
+    /* background-color: aqua; */
+    position: relative;
+}
+
+.userLandingBanner img{
+    height: 448px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .userLandingBannerContent{
     padding: 140px 30px 0 30px;
     height: 190px;
+    position: absolute;
+    top: 0;
+    z-index: 9;
     /* padding-left: 15px; */
 }
 
@@ -47,7 +58,10 @@
 }
 
 .fade_bottom{
-    height: 7.4rem;
+    position: absolute;
+    bottom: 0;
+    height: 22.4rem;
+    width: 100%;
     margin-top: 9rem;
     background-image: linear-gradient(180deg,transparent,rgba(37,37,37,.61),#111);
 

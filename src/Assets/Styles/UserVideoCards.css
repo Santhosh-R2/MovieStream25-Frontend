@@ -2,6 +2,7 @@
     /* margin-left: 20px; */
     padding: 0 30px;
     color: #fff;
+    border-radius: 10px;
 }
 
 .videoPosters{
@@ -9,6 +10,13 @@
     padding: 20px;
     overflow-x: scroll;
     overflow-y: hidden;
+    border-radius: 10px;
+
+}
+
+.videoPosters img{
+    border-radius: 10px;
+
 }
 
 .videoPosters::-webkit-scrollbar{

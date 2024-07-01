@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react';
-import '../../Assets/Styles/UserNavbar.css'
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../Assets/Images/Vector (1).png'
+import React, { useEffect } from "react";
+import "../../Assets/Styles/UserNavbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../Assets/Images/Vector (1).png";
 
-{/* <img className='userNavbarAvatar' src='https://i.pinimg.com/originals/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1.png' alt="" /> */}
-
-function UserNavbar() { 
-
-  const navigate = useNavigate(); 
+function UserNavbar() {
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("userId") == null) {
       navigate("/");
     }
-  },[navigate]);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -21,29 +18,51 @@ function UserNavbar() {
   };
 
   return (
-    <div className='userNavbar'>
-      <Link to='/user_home'>
-            <div className="landing_nav_logo">
-              <img src={logo} alt="logo" />
-              <p>
-                <span className="logo_red">Cine</span>Stream
-              </p>
-            </div>
-          </Link>
-          <div className='d-flex' >
-          <div className='pe-3' >
-            <Link to={'/user_home'} >Home</Link>
-            </div>
-          {/* <div className='pe-3' >
-            <Link to={'/user_add_complaint'} >Add Complaint</Link>
-            </div> */}
-            <div className='pe-3' >
-            <Link onClick={handleLogout} >Logout</Link>
-            </div>
-            
-          </div>
-    </div>
-  )
+    <nav className="navbar navbar-expand-lg fixed-top">
+      <div className="container-fluid ">
+        <Link className="navbar-brand" to="/user_home">
+          <img
+            src={logo}
+            alt="logo"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+          <span className="ms-2 text-light">
+            <span className="text-danger">Cine</span>Stream
+          </span>
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="/user_home">
+                Home
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link text-light' to='/user_add_complaint'>Add Complaint</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" onClick={handleLogout}>
+                Logout
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
 }
 
-export default UserNavbar
+export default UserNavbar;

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../Assets/Styles/UserAddComplaints.css";
 import img from "../../Assets/Images/complaintBanner.png";
+import { useNavigate } from "react-router-dom";
  
 function UserAddComplaints() {
+
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    if (localStorage.getItem("userId") == null) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       <div className="user_add_complaint">

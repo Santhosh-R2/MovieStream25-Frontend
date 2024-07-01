@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../Assets/Images/Vector.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
@@ -15,6 +15,8 @@ function UserLogin() {
     setShowPassword(!showPassword);
   };
 
+  
+
   const onSubmit = (values) => {
     console.log(values);
     axiosInstance.post('/loginUser', values)
@@ -25,7 +27,7 @@ function UserLogin() {
           if (res.data.data.profileStatus === false) {
             navigate('/user_prefer_languages');
           } else {
-            navigate('/user_home');
+            navigate(`/user_home`);
             toast.success("Login Successful");
           }
         } else if (res.data.status === 405) {
@@ -47,6 +49,8 @@ function UserLogin() {
     validationSchema: LoginSchema,
     onSubmit: onSubmit
   });
+
+
 
   return (
     <div>

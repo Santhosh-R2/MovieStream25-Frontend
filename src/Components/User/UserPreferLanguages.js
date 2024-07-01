@@ -11,9 +11,17 @@ import axiosInstance from "../Constants/BaseUrl";
 import { useNavigate } from "react-router-dom";
 
 function UserPreferLanguages() {
+
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    if (localStorage.getItem("userId") == null) {
+      navigate("/");
+    }
+  });
+
   const [preferredLanguages, setPreferredLanguages] = useState([]);
   const checkboxRefs = useRef([]);
-  const navigate=useNavigate();
   const id=localStorage.getItem('userId')
 
   const handleCheckboxChange = (event) => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { imageUrl } from '../Constants/Constance';
 import '../../Assets/Styles/UserVideoCards.css'
-import axios from '../Constants/Axios'
 import { Link, useNavigate } from 'react-router-dom';
+import axiosInstance from '../Constants/BaseUrl';
+import { imageUrl } from '../Constants/Image_Url';
 
-function UserVideoCards(props) {
+function UserVideoCards({title}) {
 
   const navigate = useNavigate(); 
 
@@ -14,38 +14,54 @@ function UserVideoCards(props) {
     }
   });
 
-    const [movies, setmovies] = useState([]);
-  // const [urlId, setUrlId] = useState("");
+
+
+  const [movieData, setMovieData] = useState([]); 
 
   useEffect(() => {
-    axios.get(props.url).then((response) => {
-      console.log(response.data);
-      setmovies(response.data.results);
-    });
+    axiosInstance
+      .post(`/getMoviesByGenre/${title}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setMovieData(res.data.data);
+        } else {
+          console.log("Failed to fetch cast data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
   }, []);
 
   return (
     
     <div className="userVideoCards mt-3">
-      <h4>{props.title}</h4>
+      {
+        movieData.length?<>
+        <h4>{title}</h4>
       <div className="videoPosters">
-        {movies.map((obj) => (
-          obj.backdrop_path !=null ?
-          <Link to={'/user_view_single_movie'} >
+        {movieData.map((obj) => (
+          
+            obj.adminApproved==true?<Link to={`/user_view_single_movie/${obj._id}/${obj.thumbnail.filename}`} >
           <div>
             <img
-              // onClick={() => handleMovie(obj.id)}
               className="videoSmallPoster"
-              src={`${imageUrl + obj.backdrop_path}`}
+              src={`${imageUrl}/${obj.thumbnail.filename}`}
               alt=""
               />
-            <h6 className='mt-2' >{obj.title ? obj.title : obj.name}</h6>
+            <h6 className='mt-2' >{obj.name}</h6>
           </div>
-          </Link>
-           : null
+          </Link>:''
+          
+          
+          
+          
         ))}
       </div>
-      {/* {urlId && <YouTube opts={opts} videoId={urlId.key} />} */}
+        </>:''
+      }
+      
     </div>
   )
 }

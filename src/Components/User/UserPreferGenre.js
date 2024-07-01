@@ -11,9 +11,18 @@ import axiosInstance from "../Constants/BaseUrl";
 import { useNavigate } from "react-router-dom";
 
 function UserPreferGenre() {
+
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    if (localStorage.getItem("userId") == null) {
+      navigate("/");
+    }
+  });
+
+
   const [preferredGenre, setPreferredGenre] = useState([]);
 
-  const navigate=useNavigate();
   const id=localStorage.getItem('userId')
   console.log(id);
   const checkboxRefs = useRef([]);
@@ -49,7 +58,7 @@ function UserPreferGenre() {
         console.log('working', res);
         if (res.data.status === 200) {
             toast.success('Profile Updated')
-            navigate('/user_home');
+            navigate(`/user_home`);
         } else {
           toast.error('Something Went Wrong');
         }
