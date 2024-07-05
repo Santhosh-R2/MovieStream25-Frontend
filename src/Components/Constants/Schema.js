@@ -11,6 +11,23 @@ const SUPPORTED_IMAGE_FORMATS = ["image/jpeg", "image/png", "image/gif"];
 // Define the allowed video types
 const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/mkv", "video/avi"];
 
+const currentYear = new Date().getFullYear();
+const currentMonth = new Date().getMonth() + 1;
+
+const months = [
+  { value: 1, label: 'January' },
+  { value: 2, label: 'February' },
+  { value: 3, label: 'March' },
+  { value: 4, label: 'April' },
+  { value: 5, label: 'May' },
+  { value: 6, label: 'June' },
+  { value: 7, label: 'July' },
+  { value: 8, label: 'August' },
+  { value: 9, label: 'September' },
+  { value: 10, label: 'October' },
+  { value: 11, label: 'November' },
+  { value: 12, label: 'December' }]
+
 export const LoginSchema = yup.object().shape({
   email: yup
     .string()
@@ -67,7 +84,7 @@ export const UserRegistrationSchema = yup.object().shape({
     .string()
     .min(2, "Enter minimum 2 characters")
     .required("Required"),
-  image: yup
+  img: yup
     .mixed()
     .required("Please select an image")
     .test(
@@ -175,6 +192,19 @@ export const AddMovieSchema = yup.object().shape({
       (value) =>
         !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
     ),
+  trailer: yup
+    .mixed()
+    .required("Please select a video file")
+    .test(
+      "fileType",
+      "Unsupported file format",
+      (value) =>
+        !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
+    ),
+    imdb: yup
+    .string()
+    .matches(/^\d(\.\d)?$|10(\.0)?$/, "IMDB rating must be a number between 0 and 10 with a single decimal place")
+    .required("IMDB rating is required"),
   adults: yup.boolean().required("Required"),
 });
 
@@ -194,3 +224,39 @@ export const AddCastSchema = yup.object().shape({
         !value || (value && SUPPORTED_IMAGE_FORMATS.includes(value.type))
     ),
 });
+
+export const paymentSchema = yup.object().shape({
+  cardName: yup.string()
+    .min(2, "Enter minimum 2 characters")
+    .required("Required"),
+  cardNo: yup.number()
+    .min(1000000000000000, "Card number must be minimum 16 digit number")
+    .max(9999999999999999, "Card number must be a 16-digit number")
+    .required("Required"),
+  cvv: yup.number()
+    .min(100, "CVV number must be minimum 3 digit number")
+    .max(999, "CVV number must be a 3-digit number")
+    .required("Required"),
+  month: yup.string()
+    .required("Required")
+    .test('is-valid-month', 'Expiry month must be greater than or equal to the current month', function (value) {
+      const { year } = this.parent;
+      if (parseInt(year) === currentYear) {
+        const monthValue = months.find(month => month.label === value)?.value;
+        return monthValue >= currentMonth;
+      }
+      return true;
+    }),
+  year: yup.string()
+    .required("Required")
+    .test('is-valid-year', 'Year must be equal to or greater than the current year', function (value) {
+      return parseInt(value) >= currentYear;
+    })
+});
+
+export const subscriptionSchema  = yup.object().shape({
+  title:yup.string().min(2,"Enter minimum 2 characters").required("Required"),
+  price:yup.number().min(0,"Amount must be minimum 1 digit number").required("Required"),
+  noOfMonth:yup.number().min(1,"Month must be minimum 1 digit number").max(99, "Month must be a 3-digit number").required("Required"),
+  description:yup.string().required("Required"),
+})

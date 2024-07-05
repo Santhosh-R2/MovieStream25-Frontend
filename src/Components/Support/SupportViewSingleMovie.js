@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import axiosInstance from '../Constants/BaseUrl';
-import { imageUrl } from '../Constants/Image_Url';
-import MovieInfo from '../Common/MovieInfo';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../Constants/BaseUrl";
+import { imageUrl } from "../Constants/Image_Url";
+import MovieInfo from "../Common/MovieInfo";
+import { toast } from "react-toastify";
 
 function SupportViewSingleMovie() {
+  const navigate = useNavigate();
 
-    const navigate=useNavigate()
-
-    const { id, img } = useParams();
+  const { id, img } = useParams();
   const [movieData, setMovieData] = useState({ releaseDate: "" });
   const [movieCast, setMovieCast] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -62,7 +61,7 @@ function SupportViewSingleMovie() {
 
   return (
     <div>
-       <div
+      <div
         style={{
           backgroundImage: `url('${imageUrl}/${img}')`,
         }}
@@ -72,26 +71,33 @@ function SupportViewSingleMovie() {
           <div>
             <h3>{movieData.name}</h3>
             <h6>{movieData.description}</h6>
-            <Link to={`/support_play_movie/${movieData._id}`}>
-            <button className="btn bg_red">
-              Play
-            </button>
+            <Link to={`/support_play_movie/${movieData._id}/movie`}>
+              <button className="btn bg_red mx-2">Play</button>
             </Link>
-            
-                <Link to={`/support_edit_movie/${movieData._id}`}>
-              <button className="btn bg_icon mx-2" >
-              <i class="ri-file-edit-line"></i>
+            <Link to={`/support_play_movie/${movieData._id}/trailer`}>
+              <button className="btn bg_icon">Trailer</button>
+            </Link>
+
+            <Link to={`/support_edit_movie/${movieData._id}`}>
+              <button className="btn bg_icon mx-2">
+                <i class="ri-file-edit-line"></i>
               </button>
-              </Link>
-              <button className="btn bg_icon" onClick={()=>{handleReject();navigate('/support_view_movies')}}>
-                  <i className="ri-close-line"></i>
-                </button>
+            </Link>
+            <button
+              className="btn bg_icon"
+              onClick={() => {
+                handleReject();
+                navigate("/support_view_movies");
+              }}
+            >
+              <i className="ri-close-line"></i>
+            </button>
           </div>
         </div>
       </div>
-            <MovieInfo  />
+      <MovieInfo />
     </div>
-  )
+  );
 }
 
-export default SupportViewSingleMovie
+export default SupportViewSingleMovie;

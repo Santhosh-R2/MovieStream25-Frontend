@@ -59,7 +59,10 @@ function SupportSidebar() {
                 </div>
               )}
               <div className="adjust-space">
+                <Link to={'/support_view_complaints'}>
                 <label className="label-sub">Complaints</label>
+                </Link>
+                
               </div>
               <div className="adjust-space">
                 <Link onClick={handleLogout}>

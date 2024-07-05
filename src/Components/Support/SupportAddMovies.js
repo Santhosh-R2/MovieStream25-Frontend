@@ -7,7 +7,7 @@ import { AddMovieSchema } from "../Constants/Schema";
 import axiosInstance from "../Constants/BaseUrl";
 import axiosMultipartInstance from "../Constants/FormDataUrl";
 import Lottie from "lottie-react";
-import loading from '../../Assets/Json/loading.json'
+import loading from "../../Assets/Json/loading.json";
 
 function SupportAddMovies() {
   const navigate = useNavigate();
@@ -20,6 +20,15 @@ function SupportAddMovies() {
 
   const [isToastVisible, setToastVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const languages = [
+    { name: "English" },
+    { name: "Malayalam" },
+    { name: "Tamil" },
+    { name: "Hindi" },
+    { name: "Telugu" },
+    { name: "Kannada" },
+  ];
 
   const {
     values,
@@ -42,10 +51,12 @@ function SupportAddMovies() {
       thumbnail: null,
       video: null,
       adults: "",
+      trailer: null,
+      imdb: "",
     },
     validationSchema: AddMovieSchema,
     onSubmit: (values) => {
-      setIsLoading(true); 
+      setIsLoading(true);
       const formData = new FormData();
       Object.keys(values).forEach((key) => {
         formData.append(key, values[key]);
@@ -56,7 +67,7 @@ function SupportAddMovies() {
         .post("/createMovie", formData)
         .then((res) => {
           console.log(res);
-          setIsLoading(false); 
+          setIsLoading(false);
           if (res.data.status === 200) {
             if (!isToastVisible) {
               setToastVisible(true);
@@ -108,11 +119,13 @@ function SupportAddMovies() {
             <div className="col-7">
               <div className="user_add_complaint_form">
                 <div className="container">
-                  {isLoading ? ( 
+                  {isLoading ? (
                     <div className="no_data_animation">
-                    <Lottie animationData={loading} className="no_data_animation" />
-                   
-                  </div>
+                      <Lottie
+                        animationData={loading}
+                        className="no_data_animation"
+                      />
+                    </div>
                   ) : (
                     <form onSubmit={(e) => handleSubmit(e)}>
                       <div className="row">
@@ -158,7 +171,9 @@ function SupportAddMovies() {
                             onBlur={handleBlur}
                           />
                           {touched.director && errors.director && (
-                            <span className="text-danger">{errors.director}</span>
+                            <span className="text-danger">
+                              {errors.director}
+                            </span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -177,16 +192,21 @@ function SupportAddMovies() {
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
-                          <input
-                            type="text"
+                          <select
                             name="language"
-                            placeholder="Language"
-                            value={values.language}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                          />
+                            value={values.language}
+                          >
+                            <option value="">Language</option>
+                            {languages.map((e) => {
+                              return <option value={e.name}>{e.name}</option>;
+                            })}
+                          </select>
                           {touched.language && errors.language && (
-                            <span className="text-danger">{errors.language}</span>
+                            <span className="text-danger">
+                              {errors.language}
+                            </span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -210,12 +230,17 @@ function SupportAddMovies() {
                             type="file"
                             name="thumbnail"
                             onChange={(event) => {
-                              setFieldValue("thumbnail", event.currentTarget.files[0]);
+                              setFieldValue(
+                                "thumbnail",
+                                event.currentTarget.files[0]
+                              );
                             }}
                             onBlur={handleBlur}
                           />
                           {touched.thumbnail && errors.thumbnail && (
-                            <span className="text-danger">{errors.thumbnail}</span>
+                            <span className="text-danger">
+                              {errors.thumbnail}
+                            </span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -228,7 +253,9 @@ function SupportAddMovies() {
                             onBlur={handleBlur}
                           />
                           {touched.releaseDate && errors.releaseDate && (
-                            <span className="text-danger">{errors.releaseDate}</span>
+                            <span className="text-danger">
+                              {errors.releaseDate}
+                            </span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -242,7 +269,9 @@ function SupportAddMovies() {
                             onBlur={handleBlur}
                           />
                           {touched.duration && errors.duration && (
-                            <span className="text-danger">{errors.duration}</span>
+                            <span className="text-danger">
+                              {errors.duration}
+                            </span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -251,12 +280,48 @@ function SupportAddMovies() {
                             type="file"
                             name="video"
                             onChange={(event) => {
-                              setFieldValue("video", event.currentTarget.files[0]);
+                              setFieldValue(
+                                "video",
+                                event.currentTarget.files[0]
+                              );
                             }}
                             onBlur={handleBlur}
                           />
                           {touched.video && errors.video && (
                             <span className="text-danger">{errors.video}</span>
+                          )}
+                        </div>
+                        <div className="col-6 user_reg_input_grp mt-2">
+                          <label>Add Trailer</label>
+                          <input
+                            type="file"
+                            name="trailer"
+                            onChange={(event) => {
+                              setFieldValue(
+                                "trailer",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            onBlur={handleBlur}
+                          />
+                          {touched.trailer && errors.trailer && (
+                            <span className="text-danger">
+                              {errors.trailer}
+                            </span>
+                          )}
+                        </div>
+                        <div className="col-6 user_reg_input_grp mt-2">
+                          <label>IMDB Rating</label>
+                          <input
+                            type="number"
+                            name="imdb"
+                            placeholder="IMDB Rating"
+                            value={values.imdb}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                          {touched.imdb && errors.imdb && (
+                            <span className="text-danger">{errors.imdb}</span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
@@ -270,7 +335,9 @@ function SupportAddMovies() {
                             onBlur={handleBlur}
                           />
                           {touched.description && errors.description && (
-                            <span className="text-danger">{errors.description}</span>
+                            <span className="text-danger">
+                              {errors.description}
+                            </span>
                           )}
                         </div>
                         <div className="d-flex justify-content-end">

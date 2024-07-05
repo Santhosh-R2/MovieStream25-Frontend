@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axiosInstance from "../Constants/BaseUrl";
 import { imageUrl } from "../Constants/Image_Url";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../Assets/Styles/UserLandingBanner.css";
 
 function UserLandingBanner() {
@@ -33,7 +33,7 @@ function UserLandingBanner() {
   }, []);
 
   return (
-    <div className="userLandingBanner mt-5">
+    <div className="userLandingBanner">
       {movie ? (
         <>
           <img
@@ -42,10 +42,11 @@ function UserLandingBanner() {
           />
 
           <div className="userLandingBannerContent">
-            <h1 className="userLandingBannerTitle">{movie.name}</h1>
+            <h1 className="userLandingBannerTitle">{movie.name}</h1> 
             <div className="userLandingBannerButtons">
+              <Link to={`/user_view_single_movie/${movie._id}/${movie.thumbnail.filename}`}>
               <button className="button">Play</button>
-              {/* <button className="button">My List</button> */}
+              </Link>
               <h1 className="userLandingBannerDescription">
                 {movie.description}
               </h1>

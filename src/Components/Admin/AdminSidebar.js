@@ -18,9 +18,14 @@ function AdminSidebar() {
   };
 
   const [showMoviesDropdown, setShowMoviesDropdown] = useState(false);
+  const [showSubscription, setShowSubscription] = useState(false);
 
   const toggleMoviesDropdown = () => {
     setShowMoviesDropdown(!showMoviesDropdown);
+  };
+
+  const toggleSubscriptionDropdown = () => {
+    setShowSubscription(!showSubscription);
   };
 
   return (
@@ -43,7 +48,10 @@ function AdminSidebar() {
                 <label className="label-sub">Home</label></Link>
               </div>
               <div className="adjust-space">
+                <Link to={'/admin_view_users'}>
                 <label className="label-sub">Users</label>
+                </Link>
+                
               </div>
               <div className="adjust-space" onClick={toggleMoviesDropdown}>
                 <label className="label-sub">Movies</label>
@@ -62,8 +70,28 @@ function AdminSidebar() {
                   </Link>
                 </div>
               )}
+              <div className="adjust-space" onClick={toggleSubscriptionDropdown}>
+                <label className="label-sub">Subscription</label>
+              </div>
+              {showSubscription && (
+                <div className="custom-dropdown-menu">
+                  <Link to={'/admin_add_subscription_plan'}>
+                    <div className="custom-dropdown-item">
+                      <label className="label-sub">Add Subscription</label>
+                    </div>
+                  </Link>
+                  <Link to={'/admin_view_subscription_plan'}>
+                    <div className="custom-dropdown-item">
+                      <label className="label-sub">View Subscription</label>
+                    </div>
+                  </Link>
+                </div>
+              )}
               <div className="adjust-space">
+                <Link to={'/admin_view_complaints'}>
                 <label className="label-sub">Complaints</label>
+                </Link>
+                
               </div>
               <div className="adjust-space">
                 <Link onClick={handleLogout}><label className="label-sub">Logout</label></Link>

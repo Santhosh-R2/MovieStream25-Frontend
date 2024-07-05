@@ -5,7 +5,7 @@ import "../../Assets/Styles/UserRegistration.css";
 import logo from "../../Assets/Images/Vector.png";
 import { UserRegistrationSchema } from "../Constants/Schema";
 import { toast } from "react-toastify";
-import axiosInstance from "../Constants/BaseUrl";
+import axiosMultipartInstance from "../Constants/FormDataUrl";
 
 function UserRegistration() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function UserRegistration() {
       state: "",
       nationality: "",
       pincode: "",
-      image: null,
+      img: null,
       password: "",
       confirmPassword: "",
     },
@@ -45,7 +45,7 @@ function UserRegistration() {
         formData.append(key, values[key]);
       });
 
-      axiosInstance
+      axiosMultipartInstance
         .post("/registerUser", formData)
         .then((res) => {
           console.log(res);
@@ -224,13 +224,13 @@ function UserRegistration() {
                     <label>Upload Image</label>
                     <input
                       type="file"
-                      name="image"
+                      name="img"
                       onChange={(event) => {
-                        setFieldValue("image", event.target.files[0]);
+                        setFieldValue("img", event.target.files[0]);
                       }}
                     />
-                    {touched.image && errors.image && (
-                      <span className="text-danger">{errors.image}</span>
+                    {touched.img && errors.img && (
+                      <span className="text-danger">{errors.img}</span>
                     )}
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-12 user_reg_input_grp mt-1">

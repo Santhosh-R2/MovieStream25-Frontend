@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import SupportViewSingleMovie from "./SupportViewSingleMovie";
 import PlayVideo from "../Common/PlayVideo";
 import SupportEditMovie from "./SupportEditMovie";
+import SupportViewComplaints from "./SupportViewComplaints";
 
 function SupportCall({ type }) {
 
@@ -43,6 +44,8 @@ function SupportCall({ type }) {
             <PlayVideo /> 
           ) : type == "support_edit_movie" ? (
             <SupportEditMovie /> 
+          ) : type == "support_view_complaints" ? (
+            <SupportViewComplaints /> 
           ) : (
             ""
           )}

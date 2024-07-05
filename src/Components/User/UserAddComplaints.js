@@ -1,17 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../Assets/Styles/UserAddComplaints.css";
 import img from "../../Assets/Images/complaintBanner.png";
 import { useNavigate } from "react-router-dom";
- 
-function UserAddComplaints() {
+import axiosInstance from "../Constants/BaseUrl";
+import SubscriptionBanner from "./SubscriptionBanner";
+import { toast } from "react-toastify";
 
-  const navigate = useNavigate(); 
+function UserAddComplaints() {
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("userId") == null) {
       navigate("/");
     }
   });
+
+  const id = localStorage.getItem("userId");
+  const [userDetails, setUserDetails] = useState({});
+  const [complaint,setComplaint]=useState('')
+
+  useEffect(() => {
+    axiosInstance
+      .post(`/viewUserById/${id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setUserDetails(res.data.data);
+        } else {
+          console.log("Failed to fetch cast data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
+  }, []);
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    axiosInstance
+      .post(`/createComplaint`,{userId:userDetails._id,complaint:complaint})
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          toast.success('Complaint Added')
+        } else {
+          toast.error("Failed to add");
+          setComplaint('')
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
+  }
 
   return (
     <div>
@@ -37,39 +77,51 @@ function UserAddComplaints() {
             <div className="col-7">
               <div className="user_add_complaint_form">
                 <div className="container">
-                    <form>
-                      <div className="row">
-                    <div className="col-6 user_reg_input_grp mt-3">
-                      <label>Name</label>
-                      <input type="text" placeholder="Enter Your Name" />
-                    </div>
-                    <div className="col-6 user_reg_input_grp mt-3">
-                      <label>Contact</label>
+                  <form onSubmit={handleSubmit} >
+                    <div className="row">
+                      <div className="col-6 user_reg_input_grp mt-3">
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          placeholder="Enter Your Name"
+                          value={userDetails.name}
+                        />
+                      </div>
+                      <div className="col-6 user_reg_input_grp mt-3">
+                        <label>Contact</label>
 
-                      <input type="number" placeholder="Enter Your Name" />
-                    </div>
-                    <div className="col-12 user_reg_input_grp mt-4">
-                      <label>E-mail</label>
+                        <input
+                          type="number"
+                          placeholder="Enter Your Name"
+                          value={userDetails.contact}
+                        />
+                      </div>
+                      <div className="col-12 user_reg_input_grp mt-4">
+                        <label>E-mail</label>
 
-                      <input type="number" placeholder="Enter Your Name" />
-                    </div>
-                    <div className="col-12 user_reg_input_grp mt-4">
-                      <label>Message</label>
+                        <input
+                          type="email"
+                          placeholder="Enter Your Name"
+                          value={userDetails.email}
+                        />
+                      </div>
+                      <div className="col-12 user_reg_input_grp mt-4">
+                        <label>Message</label>
 
-                      <textarea placeholder="Enter Your Message" rows='5'   />
+                        <textarea placeholder="Enter Your Message" rows="5" onChange={(e)=>{setComplaint(e.target.value)}} required />
+                      </div>
+                      <div className="d-flex justify-content-end mt-4">
+                        <button type="submit" className="btn bg_red">Send Message</button>
+                      </div>
                     </div>
-                    <div className="d-flex justify-content-end mt-4" >
-                        <button className="btn bg_red">Send Message</button>
-                    </div>
-                  </div>  
-                    </form>
-                  
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {userDetails.paymentStatus == false ? <SubscriptionBanner /> : ""}
     </div>
   );
 }

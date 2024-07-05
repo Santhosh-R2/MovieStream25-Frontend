@@ -1,13 +1,13 @@
 .userVideoCards{
     /* margin-left: 20px; */
-    padding: 0 30px;
+    /* padding: 0 100px; */
     color: #fff;
     border-radius: 10px;
 }
 
 .videoPosters{
     display: flex;
-    padding: 20px;
+    padding: 20px 20px 20px 0;
     overflow-x: scroll;
     overflow-y: hidden;
     border-radius: 10px;
@@ -16,6 +16,10 @@
 
 .videoPosters img{
     border-radius: 10px;
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+
 
 }
 

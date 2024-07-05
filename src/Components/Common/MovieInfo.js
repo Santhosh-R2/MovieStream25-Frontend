@@ -66,6 +66,10 @@ function MovieInfo() {
                 <i className="ri-hourglass-2-fill"></i> Duration
               </p>
               <p className="mt-1">{movieData.duration} hrs</p>
+              <p className="user_single_video_container1_title mt-3">
+              <i class="ri-star-half-line"></i> IMDb 
+              </p>
+              <p className="mt-1">{movieData.imdb}</p>
             </div>
             <div className="col-12 user_single_video_container1 mt-2">
                 {movieCast.length?<p className="user_single_video_container1_title mb-3">Cast</p>:''}

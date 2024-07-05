@@ -19,7 +19,7 @@ function UserNavbar() {
 
   return (
     <nav className="navbar navbar-expand-lg fixed-top">
-      <div className="container-fluid ">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/user_home">
           <img
             src={logo}
@@ -50,13 +50,35 @@ function UserNavbar() {
                 Home
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="/user_view_subscription">
+                Subscription
+              </Link>
+            </li>
             <li className='nav-item'>
               <Link className='nav-link text-light' to='/user_add_complaint'>Add Complaint</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-light" onClick={handleLogout}>
-                Logout
+              <Link to={'/user_view_wishlist'} className="nav-link text-light">
+                <i className="ri-heart-3-line"></i>
               </Link>
+            </li>
+            <li className="nav-item dropdown">
+              <Link
+                className="nav-link dropdown-toggle text-light"
+                to="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="ri-user-3-line"></i>
+              </Link>
+              <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <li><Link className="dropdown-item" to="/user_profile">Profile</Link></li>
+                <li><Link className="dropdown-item" to="/view_my_plans">My Plans</Link></li>
+                <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
+              </ul>
             </li>
           </ul>
         </div>

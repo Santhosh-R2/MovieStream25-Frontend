@@ -97,10 +97,15 @@ function AdminViewSingleMovieReq({ type }) {
         <div className="user_single_video_title">
           <div>
             <h3>{movieData.name}</h3>
-            <h6>{movieData.description}</h6>
-            <Link to={`/admin_play_video/${movieData._id}`}>
-            <button className="btn bg_red">
+            <h6>{movieData.description}</h6> 
+            <Link to={`/admin_play_video/${movieData._id}/movie`}>
+            <button className="btn bg_red mx-2">
               Play
+            </button>
+            </Link>
+            <Link to={`/admin_play_video/${movieData._id}/trailer`}>
+            <button className="btn bg_icon">
+              Trailer
             </button>
             </Link>
             

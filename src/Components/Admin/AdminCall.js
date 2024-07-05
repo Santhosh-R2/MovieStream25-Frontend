@@ -7,6 +7,11 @@ import AdminViewSingleMovieReq from "./AdminViewSingleMovieReq";
 import AdminViewApprovedMovies from "./AdminViewApprovedMovies";
 import PlayVideo from "../Common/PlayVideo";
 import { useNavigate } from "react-router-dom";
+import AdminAddSubscribtion from "./AdminAddSubscribtion";
+import AdminViewSubscription from "./AdminViewSubscription";
+import AdminEditSubscription from "./AdminEditSubscription";
+import AdminViewComplaints from "./AdminViewComplaints";
+import AdminViewAllUsers from "./AdminViewAllUsers";
 
 function AdminCall({ type }) {
 
@@ -40,6 +45,16 @@ function AdminCall({ type }) {
             <AdminViewSingleMovieReq type='view'  />
           ) : type === "admin_play_movie" ? (
             <PlayVideo  />
+          ) : type === "add_subscription" ? (
+            <AdminAddSubscribtion  />
+          ) : type === "view_subscription" ? (
+            <AdminViewSubscription  />
+          ) : type === "edit_subscription" ? (
+            <AdminEditSubscription  />
+          ) : type === "view_complaints" ? (
+            <AdminViewComplaints  />
+          ) : type === "view_users" ? (
+            <AdminViewAllUsers  />
           ) : (
             ""
           )}
