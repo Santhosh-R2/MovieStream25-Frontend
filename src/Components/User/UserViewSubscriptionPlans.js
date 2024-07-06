@@ -76,7 +76,7 @@ function UserViewSubscriptionPlans() {
               </p>
                 <p className="subscription_head mt-2 mb-2">
                 ₹ {plan.price} <span className="subscription_para fs-6">/{plan.noOfMonth} month</span>
-                  <span className="subscription_para fs-6"> - 1 month</span>
+                  {/* <span className="subscription_para fs-6"> - 1 month</span> */}
                 </p>
                 <div className="user_subscription_actions">
                   {/* <Link to={`/user_subscription_payment/${plan.price}/${plan._id}`}> */}
