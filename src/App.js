@@ -29,6 +29,8 @@ import UserViewWishlisht from "./Components/User/UserViewWishlisht";
 import UserProfile from "./Components/User/UserProfile";
 import UserViewMyPlans from "./Components/User/UserViewMyPlans";
 import UserEditProfile from "./Components/User/UserEditProfile";
+import UserChat from "./Components/User/UserChat";
+import UserAddReview from "./Components/User/UserAddReview";
 
 
 
@@ -52,11 +54,13 @@ function App() {
         <Route path='/user_add_complaint' element={[<UserNavbar/>,<UserAddComplaints/>]} />
         <Route path='/user_view_subscription' element={[<UserNavbar/>,<UserViewSubscriptionPlans/>]} />
         <Route path='/user_subscription_payment/:cost/:id' element={[<UserNavbar/>,<UserSubscriptionPayment/>]} />
-        <Route path='/user_play_movie/:id/:type' element={[<UserNavbar/>,<PlayVideo/>]} />
+        <Route path='/user_play_movie/:id/:type' element={[<UserNavbar/>,<PlayVideo userType='user' />]} />
         <Route path='/user_view_wishlist' element={[<UserNavbar/>,<UserViewWishlisht/>]} />
         <Route path='/user_profile' element={[<UserNavbar/>,<UserProfile/>]} />
         <Route path='/user_edit_profile' element={[<UserNavbar/>,<UserEditProfile/>]} />
         <Route path='/view_my_plans' element={[<UserNavbar/>,<UserViewMyPlans/>]} />
+        <Route path='/user_chat' element={[<UserNavbar/>,<UserChat/>]} />
+        <Route path='/user_add_review/:id' element={[<UserNavbar/>,<UserAddReview />]} />
 
 
         {/* Support Routes  */}
@@ -69,6 +73,7 @@ function App() {
         <Route path='/support_play_movie/:id/:type' element={[<SupportCall type='support_play_movie' />]} />
         <Route path='/support_edit_movie/:id' element={[<SupportCall type='support_edit_movie' />]} />
         <Route path='/support_view_complaints' element={[<SupportCall type='support_view_complaints' />]} />
+        <Route path='/support_chat' element={[<SupportCall type='support_chat' />]} />
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />

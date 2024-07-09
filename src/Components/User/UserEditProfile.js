@@ -23,7 +23,12 @@ function UserEditProfile() {
     axiosInstance.post(`/viewUserById/${uid}`)
       .then((res) => {
         if (res.data.status === 200) {
-          setFormData(res.data.data);
+          const userData = res.data.data;
+          // Format the date to YYYY-MM-DD if it's not already in that format
+          if (userData.dob) {
+            userData.dob = new Date(userData.dob).toISOString().split('T')[0];
+          }
+          setFormData(userData);
         } else {
           console.log('Failed to fetch user data');
         }
@@ -98,7 +103,7 @@ function UserEditProfile() {
                           type="text"
                           name="name"
                           placeholder="Enter Your Name"
-                          value={formData.name}
+                          value={formData.name || ''}
                           onChange={handleChange}
                           required
                         />
@@ -109,7 +114,7 @@ function UserEditProfile() {
                           type="email"
                           name="email"
                           placeholder="Enter Your Email"
-                          value={formData.email}
+                          value={formData.email || ''}
                           onChange={handleChange}
                           required
                         />
@@ -120,7 +125,7 @@ function UserEditProfile() {
                           type="text"
                           name="contact"
                           placeholder="Enter Your Phone Number"
-                          value={formData.contact}
+                          value={formData.contact || ''}
                           onChange={handleChange}
                           required
                         />
@@ -130,7 +135,7 @@ function UserEditProfile() {
                         <input
                           type="date"
                           name="dob"
-                          value={formData.dob}
+                          value={formData.dob || ''}
                           onChange={handleChange}
                           required
                         />
@@ -139,7 +144,7 @@ function UserEditProfile() {
                         <label><small>Gender</small></label>
                         <select
                           name="gender"
-                          value={formData.gender}
+                          value={formData.gender || ''}
                           onChange={handleChange}
                           required
                         >
@@ -154,7 +159,7 @@ function UserEditProfile() {
                           type="text"
                           name="state"
                           placeholder="Enter Your State"
-                          value={formData.state}
+                          value={formData.state || ''}
                           onChange={handleChange}
                           required
                         />
@@ -165,7 +170,7 @@ function UserEditProfile() {
                           type="text"
                           name="nationality"
                           placeholder="Enter Your Nationality"
-                          value={formData.nationality}
+                          value={formData.nationality || ''}
                           onChange={handleChange}
                           required
                         />
@@ -176,7 +181,7 @@ function UserEditProfile() {
                           type="text"
                           name="pincode"
                           placeholder="Enter Your Pincode"
-                          value={formData.pincode}
+                          value={formData.pincode || ''}
                           onChange={handleChange}
                           required
                         />

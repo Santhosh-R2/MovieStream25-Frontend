@@ -15,6 +15,8 @@ function UserViewSingleVideo() {
   const [userData, setUserData] = useState({ paymentStatus: false });
   const [wishlistMovies, setWishlistMovies] = useState([]);
   const [wishlistStatus, setWishlistStatus] = useState(false);
+  const [likeCounts, setLikeCounts] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
     // Redirect to home if user is not logged in
@@ -26,7 +28,6 @@ function UserViewSingleVideo() {
     axiosInstance
       .post(`/getMovieById/${id}`)
       .then((res) => {
-        console.log(res);
         if (res.data.status === 200) {
           setMovieData(res.data.data);
         } else {
@@ -41,7 +42,6 @@ function UserViewSingleVideo() {
     axiosInstance
       .post(`/viewUserById/${uid}`)
       .then((res) => {
-        console.log(res);
         if (res.data.status === 200) {
           setUserData(res.data.data);
         } else {
@@ -56,7 +56,6 @@ function UserViewSingleVideo() {
     axiosInstance
       .post(`/viewWishlistsByUserId/${uid}`)
       .then((res) => {
-        console.log(res);
         if (res.data.status === 200) {
           setWishlistMovies(res.data.data);
           // Check if the current movie is in the wishlist
@@ -69,19 +68,36 @@ function UserViewSingleVideo() {
       .catch(() => {
         console.log("Failed to fetch wishlist data");
       });
+
+    // Fetch like count and user like status
+   
+
   }, [id, uid, navigate]);
+
+  useEffect(()=>{
+    axiosInstance
+    .post(`/countLikes/${id}`)
+    .then((res) => {
+      if (res.data.status === 200) {
+        setLikeCounts(res.data.count);
+      } else {
+        console.log("Failed to fetch like data");
+      }
+    })
+    .catch(() => {
+      console.log("Failed to fetch like data");
+    });
+  },[hasLiked])
 
   const handleWishlist = () => {
     axiosInstance
       .post(`/addWishlist`, { userId: uid, movieId: id })
       .then((res) => {
-        console.log(res);
         if (res.data.status === 200) {
           toast('Added to Wishlist');
           setWishlistStatus(true); // Update the state after adding to wishlist
-        }else if(res.data.status==409) {
+        } else if (res.data.status === 409) {
           toast.warning(res.data.message);
-        
         } else {
           toast.error("Failed to add");
         }
@@ -91,7 +107,25 @@ function UserViewSingleVideo() {
       });
   };
 
+  const handleLike = () => {
+    axiosInstance
+      .post(`/addLike`, { userId: uid, movieId: id })
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setHasLiked(res.data.data.liked);
+        } else if (res.data.status === 409) {
+          toast.warning(res.data.message);
+        } else {
+          toast.error("Failed to add");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to add like");
+      });
+  };
 
+  console.log(hasLiked);
 
   return (
     <div>
@@ -127,11 +161,19 @@ function UserViewSingleVideo() {
 
             {userData.paymentStatus && (
               <>
-                <button className="btn bg_icon mx-2" onClick={handleWishlist}>
-                  <i className={`ri-heart-add-fill ${wishlistStatus==true?'text-danger':'text-light'}`}></i>
+                <button className="btn bg_icon mx-2 no-outline" onClick={handleWishlist}>
+                  <i className={`ri-heart-add-fill ${wishlistStatus ? 'text-danger' : 'text-light'}`}></i>
                 </button>
-                <button className="btn bg_icon ">
-                  <i className="ri-thumb-up-fill"></i><small className="mx-1">1</small>
+                <button className="btn bg_icon no-outline" onClick={handleLike}>
+                  <i className={`ri-thumb-up-fill`}></i>
+                  {/* <i className={`ri-thumb-up-fill ${hasLiked ? 'text-primary' : ''}`}></i> */}
+                  {
+                    // likeCounts>0?<small className="mx-1">{likeCounts}</small>:''
+                  }
+
+<small className="mx-1">{likeCounts}</small>
+
+                  
                 </button>
               </>
             )}

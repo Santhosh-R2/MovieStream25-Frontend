@@ -9,6 +9,7 @@ import SupportViewSingleMovie from "./SupportViewSingleMovie";
 import PlayVideo from "../Common/PlayVideo";
 import SupportEditMovie from "./SupportEditMovie";
 import SupportViewComplaints from "./SupportViewComplaints";
+import SupportChatBox from "./SupportChatBox";
 
 function SupportCall({ type }) {
 
@@ -46,6 +47,8 @@ function SupportCall({ type }) {
             <SupportEditMovie /> 
           ) : type == "support_view_complaints" ? (
             <SupportViewComplaints /> 
+          ) : type == "support_chat" ? (
+            <SupportChatBox /> 
           ) : (
             ""
           )}

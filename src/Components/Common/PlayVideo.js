@@ -4,7 +4,7 @@ import { imageUrl } from "../Constants/Image_Url";
 import axiosInstance from "../Constants/BaseUrl";
 import MovieInfo from "./MovieInfo";
 
-function PlayVideo() {
+function PlayVideo({userType}) {
   const [movieData, setMovieData] = useState({ video: { filename: "" },trailer: { filename: "" } });
   const { id } = useParams();
   const { type } = useParams();
@@ -45,7 +45,7 @@ function PlayVideo() {
           Your browser does not support the video tag.
         </video>
       </div>
-      <MovieInfo />
+      <MovieInfo userType={userType} type={type} />
     </div>
   );
 }

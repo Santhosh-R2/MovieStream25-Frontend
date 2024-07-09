@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from "../../Assets/Images/support.png";
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../Constants/BaseUrl';
 
 
-function SupportDashboard() {
+function SupportDashboard() { 
 
   const navigate=useNavigate()
 
@@ -12,6 +13,52 @@ function SupportDashboard() {
       navigate("/");
     }
   });
+
+  const [users,setUsers]=useState(0)
+  const [movies,setMovies]=useState(0)
+  const [complaints,setComplaints]=useState(0)
+
+  useEffect(() => {
+    axiosInstance
+      .post(`/viewAllcomplaints`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setComplaints(res.data.data.length);
+        } else {
+          console.log("Failed to fetch cast data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
+    axiosInstance
+      .post(`/getAllMovies`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setMovies(res.data.data.length);
+        } else {
+          console.log("Failed to fetch cast data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
+    axiosInstance
+      .post(`/viewUsers`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setUsers(res.data.data.length);
+        } else {
+          console.log("Failed to fetch cast data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+      });
+  }, []);
 
   return (
     <div className="admin_dashboard">
@@ -51,7 +98,7 @@ function SupportDashboard() {
                     <p>User</p>
                   </div>
                   <div className="admin_dashboard_cards_count">
-                    <p>20</p>
+                    <p>{users}</p>
                   </div>
                 </div>
               </div>
@@ -66,7 +113,7 @@ function SupportDashboard() {
                     <p>Movies</p>
                   </div>
                   <div className="admin_dashboard_cards_count">
-                    <p>20</p>
+                    <p>{movies}</p>
                   </div>
                 </div>
               </div>
@@ -81,7 +128,7 @@ function SupportDashboard() {
                     <p>Complaints</p>
                   </div>
                   <div className="admin_dashboard_cards_count">
-                    <p>20</p>
+                    <p>{complaints}</p>
                   </div>
                 </div>
               </div>

@@ -42,6 +42,7 @@ function UserVideoCards({ title }) {
               obj.adminApproved == true ? (
                 <Link
                   to={`/user_view_single_movie/${obj._id}/${obj.thumbnail.filename}`}
+                  className="text-decoration-none"
                 >
                   <div>
                     <img

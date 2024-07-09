@@ -1,16 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import axiosInstance from '../Constants/BaseUrl';
-import { toast } from 'react-toastify';
-import { imageUrl } from '../Constants/Image_Url';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../Constants/BaseUrl";
+import { toast } from "react-toastify";
+import { imageUrl } from "../Constants/Image_Url";
+import img2 from "../../Assets/Images/Comedy.jpg";
 
-function MovieInfo() {
-
-    const { id, img } = useParams();
+function MovieInfo({ userType, type }) {
+  const { id, img } = useParams();
   const [movieData, setMovieData] = useState({ releaseDate: "" });
   const [movieCast, setMovieCast] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const navigate = useNavigate();
+
+  const [allReviews, setAllReviews] = useState([]);
+
+  useEffect(() => {
+    axiosInstance
+      .post(`/viewReviewssByMovie/${id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setAllReviews(res.data.data.reverse());
+        } else {
+          console.log("Failed to fetch movie data");
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch movie data");
+      });
+  }, []);
 
   useEffect(() => {
     axiosInstance
@@ -42,8 +60,6 @@ function MovieInfo() {
       });
   }, [id]);
 
- 
-
   return (
     <div>
       <div className="user_single_video_containers">
@@ -67,13 +83,17 @@ function MovieInfo() {
               </p>
               <p className="mt-1">{movieData.duration} hrs</p>
               <p className="user_single_video_container1_title mt-3">
-              <i class="ri-star-half-line"></i> IMDb 
+                <i class="ri-star-half-line"></i> IMDb
               </p>
               <p className="mt-1">{movieData.imdb}</p>
             </div>
             <div className="col-12 user_single_video_container1 mt-2">
-                {movieCast.length?<p className="user_single_video_container1_title mb-3">Cast</p>:''}
-              
+              {movieCast.length ? (
+                <p className="user_single_video_container1_title mb-3">Cast</p>
+              ) : (
+                ""
+              )}
+
               <div className="user_single_video_cast_card_container">
                 {movieCast.length ? (
                   movieCast.map((cast) => (
@@ -86,7 +106,7 @@ function MovieInfo() {
                     </div>
                   ))
                 ) : (
-                  <div className='mt-4' >
+                  <div className="mt-4">
                     <p className="fs-3">No Cast Available</p>
                   </div>
                 )}
@@ -102,11 +122,69 @@ function MovieInfo() {
               </p>
               <p className="mt-1">{movieData.scriptWriter}</p>
             </div>
+            {userType == "user" && type == "movie" ? (
+              <div className="col-12 user_single_video_review mt-2">
+                {movieCast.length ? (
+                  <div className="d-flex justify-content-between">
+                    <p className="user_single_video_container1_title mb-3">
+                      Reviews
+                    </p>
+                    <Link
+                      to={`/user_add_review/${id}`}
+                      className="text-decoration-none"
+                    >
+                      <p className="text-danger mb-3">
+                        <b>
+                          {allReviews.length} reviews{" "}
+                          <i class="ri-arrow-right-s-line mt-2"></i>
+                        </b>
+                      </p>
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
+
+                <div className="user_single_video_review_card_container">
+                  {allReviews.length ? (
+                    allReviews.map((cast) => (
+                      <div className="user_single_video_cast_review_card">
+                        <div className="d-flex align-items-center">
+                        <img src={`${imageUrl}/${cast.userId.img.filename}`} alt="" />
+                        <p className="mt-1 mx-3">{cast.name}</p>
+                        </div>
+                        <div className="mt-4">
+                          <p>
+                            {cast.review.slice(0, 400)}
+                            {cast.review.length > 400 ? (
+                              <Link
+                                to={`/user_add_review/${id}`}
+                                className="text-decoration-none"
+                              >
+                                <span className="text-danger"> ...more</span>
+                              </Link>
+                            ) : (
+                              ""
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="mt-4">
+                      <p className="fs-3">No Cast Available</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MovieInfo
+export default MovieInfo;

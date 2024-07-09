@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../Constants/BaseUrl";
+import { Link } from "react-router-dom";
 
 function SupportViewComplaints() {
   const [complaint, setComplaint] = useState("");
@@ -44,7 +45,7 @@ function SupportViewComplaints() {
               <td>{e.userId.contact}</td>
               <td>{e.date.slice(0,10)}</td>
               <td>{e.complaint}</td>
-              <td><button type="submit" className="btn bg_red">Chat</button>
+              <td><Link to={'/support_chat'}><button type="submit" className="btn bg_red">Chat</button></Link>
               </td>
             </tr> 
                     )

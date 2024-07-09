@@ -6,7 +6,7 @@ import { imageUrl } from "../Constants/Image_Url";
 
 function UserProfile() {
   const uid = localStorage.getItem("userId");
-  const [userData, setUserData] = useState({ img: { filename: "" } });
+  const [userData, setUserData] = useState({ img: { filename: "" },dob:'' });
 
   useEffect(() => {
     axiosInstance
@@ -85,7 +85,7 @@ function UserProfile() {
                           <small>DOB</small>
                         </label>
 
-                        <h4>{userData.dob}</h4>
+                        <h4>{userData.dob.slice(0,10)}</h4>
                       </div>
                       <div className="col-6 user_reg_input_grp mt-2">
                         <label>

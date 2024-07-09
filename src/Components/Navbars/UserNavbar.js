@@ -55,6 +55,11 @@ function UserNavbar() {
                 Subscription
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="/user_chat">
+                Chat
+              </Link>
+            </li>
             <li className='nav-item'>
               <Link className='nav-link text-light' to='/user_add_complaint'>Add Complaint</Link>
             </li>
