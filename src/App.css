@@ -18,6 +18,10 @@ p{
   color: #e50000;
 }
 
+a{
+  text-decoration: none;
+}
+
 .bg_red{
   background-color:#e50000 ;
   color: #ffffff;

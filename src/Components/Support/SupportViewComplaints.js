@@ -45,7 +45,7 @@ function SupportViewComplaints() {
               <td>{e.userId.contact}</td>
               <td>{e.date.slice(0,10)}</td>
               <td>{e.complaint}</td>
-              <td><Link to={'/support_chat'}><button type="submit" className="btn bg_red">Chat</button></Link>
+              <td><Link to={`/support_chat/${e.userId._id}`}><button type="submit" className="btn bg_red">Chat</button></Link>
               </td>
             </tr> 
                     )

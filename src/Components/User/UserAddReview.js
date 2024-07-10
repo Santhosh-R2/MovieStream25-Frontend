@@ -7,27 +7,48 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import axiosInstance from "../Constants/BaseUrl";
 import { toast } from "react-toastify";
 import { imageUrl } from "../Constants/Image_Url";
+import ReactStars from "react-rating-stars-component";
 
 function UserAddReview() {
   const { id } = useParams();
   const uid = localStorage.getItem("userId");
 
-  const [showModal, setShowModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showRatingModal, setShowRatingModal] = useState(false);
   const [review, setReview] = useState("");
+  const [rating, setRating] = useState(0);
   const [allReviews, setAllReviews] = useState([]);
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleShowReviewModal = () => setShowReviewModal(true);
+  const handleCloseReviewModal = () => setShowReviewModal(false);
+  const handleShowRatingModal = () => setShowRatingModal(true);
+  const handleCloseRatingModal = () => setShowRatingModal(false);
 
-  const handleSubmit = (e) => {
+  const handleReviewSubmit = (e) => {
     e.preventDefault();
     axiosInstance
       .post(`/createReviews`, { movieId: id, userId: uid, review: review })
       .then((res) => {
         if (res.data.status === 200) {
-          // setMovieData(res.data.data);
           toast("Review Added");
-          setShowModal(false);
+          setShowReviewModal(false);
+        } else {
+          console.log("Failed to fetch movie data:", res.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch movie data:", error);
+      });
+  };
+
+  const handleRatingSubmit = (e) => {
+    e.preventDefault();
+    axiosInstance
+      .post(`/addRating/${id}`, { rating: rating })
+      .then((res) => {
+        if (res.data.status === 200) {
+          toast("Rating Added");
+          setShowRatingModal(false);
         } else {
           console.log("Failed to fetch movie data:", res.data.message);
         }
@@ -51,7 +72,7 @@ function UserAddReview() {
       .catch(() => {
         console.log("Failed to fetch movie data");
       });
-  }, [showModal]);
+  }, [showReviewModal, showRatingModal]);
 
   return (
     <div className="user_review">
@@ -64,9 +85,15 @@ function UserAddReview() {
           </p>
           <button
             className="btn bg_red mt-3 text-light"
-            onClick={handleShowModal}
+            onClick={handleShowReviewModal}
           >
             Add Review
+          </button>
+          <button
+            className="btn bg_red mt-3 text-light mx-2"
+            onClick={handleShowRatingModal}
+          >
+            Add Rating
           </button>
         </div>
         {allReviews.length ? (
@@ -80,10 +107,13 @@ function UserAddReview() {
         {allReviews.length
           ? allReviews.map((a) => {
               return (
-                <div className="user_add_review_container">
+                <div className="user_add_review_container" key={a._id}>
                   <div className="user_add_review_card mt-2">
                     <div className="d-flex align-items-center">
-                      <img src={`${imageUrl}/${a.userId.img.filename}`} alt="" />
+                      <img
+                        src={`${imageUrl}/${a.userId.img.filename}`}
+                        alt=""
+                      />
                       <h4 className="mt-1 mx-3 text-light">
                         <b>{a.userId.name}</b>
                       </h4>
@@ -100,11 +130,11 @@ function UserAddReview() {
           : ""}
       </div>
 
-      {/* Bootstrap Modal */}
+      {/* Bootstrap Modal for Add Review */}
       <div
-        className={`modal fade ${showModal ? "show" : ""}`}
+        className={`modal fade ${showReviewModal ? "show" : ""}`}
         tabIndex="-1"
-        style={{ display: showModal ? "block" : "none" }}
+        style={{ display: showReviewModal ? "block" : "none" }}
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content bg-dark text-light">
@@ -114,12 +144,12 @@ function UserAddReview() {
               </h5>
               <button
                 type="button"
-                className="btn-close "
-                onClick={handleCloseModal}
+                className="btn-close"
+                onClick={handleCloseReviewModal}
               ></button>
             </div>
             <div className="modal-body">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleReviewSubmit}>
                 <div className="mb-3">
                   <label htmlFor="reviewInput" className="form-label">
                     Share Here...
@@ -139,15 +169,55 @@ function UserAddReview() {
                 </button>
               </form>
             </div>
-            {/* <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>
-                Close
-              </button>
-            </div> */}
           </div>
         </div>
       </div>
-      {showModal && <div className="modal-backdrop fade show"></div>}
+      {showReviewModal && <div className="modal-backdrop fade show"></div>}
+
+      {/* Bootstrap Modal for Add Rating */}
+      <div
+        className={`modal fade ${showRatingModal ? "show" : ""}`}
+        tabIndex="-1"
+        style={{ display: showRatingModal ? "block" : "none" }}
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content bg-dark text-light">
+            <div className="modal-header border-0">
+              <h5 className="modal-title">
+                <b>Add Rating</b>
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={handleCloseRatingModal}
+              ></button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={handleRatingSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="ratingInput" className="form-label">
+                    Rate the Movie (0-5)
+                  </label>
+                  <div className="d-flex mt-2">
+                    <ReactStars
+                      count={5}
+                      size={50}
+                      onChange={(newRating) => {
+                        setRating(newRating);
+                      }}
+                      activeColor="#ffd700"
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="btn bg_red">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {showRatingModal && <div className="modal-backdrop fade show"></div>}
     </div>
   );
 }

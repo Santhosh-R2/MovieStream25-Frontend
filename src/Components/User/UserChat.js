@@ -3,7 +3,7 @@ import "../../Assets/Styles/UserChat.css";
 import UserChatSidebar from "./UserChatSidebar";
 import UserChatBox from "./UserChatBox";
 
-function UserChat({ type }) {
+function UserChat({ type,view }) {
   return (
     <div>
       <div className="container-fluid advocate_main">
@@ -12,7 +12,7 @@ function UserChat({ type }) {
             className="col-lg-3 col-md-6 col-sm-12 advocate_chat_sidebar"
             style={{ padding: 0 }}
           >
-            <UserChatSidebar />
+            <UserChatSidebar view={view} />
           </div>
           <div className=" col-lg-9 col-md-6 col-sm-12">
             {type === "noChat" ? (

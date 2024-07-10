@@ -4,15 +4,18 @@ import axiosInstance from "../Constants/BaseUrl";
 import { toast } from "react-toastify";
 import { imageUrl } from "../Constants/Image_Url";
 import img2 from "../../Assets/Images/Comedy.jpg";
+import ReactStars from "react-rating-stars-component";
 
 function MovieInfo({ userType, type }) {
   const { id, img } = useParams();
-  const [movieData, setMovieData] = useState({ releaseDate: "" });
+  const [movieData, setMovieData] = useState({ releaseDate: "", rating: 0 });
   const [movieCast, setMovieCast] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const navigate = useNavigate();
 
   const [allReviews, setAllReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance
@@ -37,6 +40,8 @@ function MovieInfo({ userType, type }) {
         console.log(res);
         if (res.data.status === 200) {
           setMovieData(res.data.data);
+          // setRating(res.data.data.rating);
+          setLoading(false); // Set loading to false after data is fetched
         } else {
           console.log("Failed to fetch movie data");
         }
@@ -82,10 +87,34 @@ function MovieInfo({ userType, type }) {
                 <i className="ri-hourglass-2-fill"></i> Duration
               </p>
               <p className="mt-1">{movieData.duration} hrs</p>
+              
               <p className="user_single_video_container1_title mt-3">
-                <i class="ri-star-half-line"></i> IMDb
+                <i className="ri-star-half-line"></i> CineStream Rating
               </p>
-              <p className="mt-1">{movieData.imdb}</p>
+              <p className="mt-1 d-flex">
+                {!loading && (
+                  <ReactStars
+                    count={5}
+                    size={20}
+                    value={movieData.rating}
+                    edit={false}
+                    activeColor="#d62933"
+                  />
+                )}
+              </p>
+              <p className="user_single_video_container1_title mt-3">
+                <i className="ri-star-half-line"></i> IMDb
+              </p>
+              {/* <p className="mt-1">{movieData.imdb}</p> */}
+              <p>{!loading && (
+                  <ReactStars
+                    count={10}
+                    size={20}
+                    value={movieData.imdb}
+                    edit={false}
+                    activeColor="#d62933"
+                  />
+                )}</p>
             </div>
             <div className="col-12 user_single_video_container1 mt-2">
               {movieCast.length ? (
@@ -136,7 +165,7 @@ function MovieInfo({ userType, type }) {
                       <p className="text-danger mb-3">
                         <b>
                           {allReviews.length} reviews{" "}
-                          <i class="ri-arrow-right-s-line mt-2"></i>
+                          <i className="ri-arrow-right-s-line mt-2"></i>
                         </b>
                       </p>
                     </Link>
@@ -150,8 +179,11 @@ function MovieInfo({ userType, type }) {
                     allReviews.map((cast) => (
                       <div className="user_single_video_cast_review_card">
                         <div className="d-flex align-items-center">
-                        <img src={`${imageUrl}/${cast.userId.img.filename}`} alt="" />
-                        <p className="mt-1 mx-3">{cast.name}</p>
+                          <img
+                            src={`${imageUrl}/${cast.userId.img.filename}`}
+                            alt=""
+                          />
+                          <p className="mt-1 mx-3">{cast.name}</p>
                         </div>
                         <div className="mt-4">
                           <p>
@@ -172,7 +204,7 @@ function MovieInfo({ userType, type }) {
                     ))
                   ) : (
                     <div className="mt-4">
-                      <p className="fs-3">No Cast Available</p>
+                      <p className="fs-3">No Reviews Available</p>
                     </div>
                   )}
                 </div>

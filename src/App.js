@@ -60,6 +60,7 @@ function App() {
         <Route path='/user_edit_profile' element={[<UserNavbar/>,<UserEditProfile/>]} />
         <Route path='/view_my_plans' element={[<UserNavbar/>,<UserViewMyPlans/>]} />
         <Route path='/user_chat' element={[<UserNavbar/>,<UserChat/>]} />
+        <Route path='/user_single_chat/:id/:type' element={[<UserNavbar/>,<UserChat/>]} />
         <Route path='/user_add_review/:id' element={[<UserNavbar/>,<UserAddReview />]} />
 
 
@@ -73,7 +74,7 @@ function App() {
         <Route path='/support_play_movie/:id/:type' element={[<SupportCall type='support_play_movie' />]} />
         <Route path='/support_edit_movie/:id' element={[<SupportCall type='support_edit_movie' />]} />
         <Route path='/support_view_complaints' element={[<SupportCall type='support_view_complaints' />]} />
-        <Route path='/support_chat' element={[<SupportCall type='support_chat' />]} />
+        <Route path='/support_chat/:id' element={[<SupportCall type='support_chat' />]} />
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />
