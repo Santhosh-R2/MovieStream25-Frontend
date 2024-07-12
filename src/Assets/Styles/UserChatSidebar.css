@@ -3,7 +3,7 @@
 } */
 
 .adv_chat_sidebar_search{
-    padding: 20px 15px;
+    padding: 20px 15px 0 15px;
     /* background-color: aqua; */
     display: flex;
     justify-content: center;
@@ -13,6 +13,19 @@
 .user_type_box{
     height: 35px;
     min-width: 50px;
+    background-color: #111111;
+    margin: 0 5px;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.248);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.user_add_gropuchat_box{
+    height: 35px;
+    width: 75%;
     background-color: #111111;
     margin: 0 5px;
     border-radius: 8px;

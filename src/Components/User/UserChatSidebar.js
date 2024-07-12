@@ -7,7 +7,7 @@ import axiosInstance from "../Constants/BaseUrl";
 import UserChatListNames from "./UserChatListNames";
 
 function UserChatSidebar() {
-  const [allUsers, setAllUsers] = useState([{name:'Radhul R Pillai'},{name:'Adersh Kumar'}]);
+  const [allUsers, setAllUsers] = useState([]);
   // const [userList, setUserList] = useState([]);
   const [groups, setGroups] = useState([]);
   const [support, setSupport] = useState(false);
@@ -69,7 +69,7 @@ function UserChatSidebar() {
                       </div>
                     </Link>
 
-                    <Link className="nav-link">
+                    <Link className="nav-link" onClick={()=>setUserType('chats')}>
                       <div className="user_type_box">
                         <p className="text-light">
                           <small>Chats</small>
@@ -77,7 +77,7 @@ function UserChatSidebar() {
                       </div>
                     </Link>
 
-                    <Link className="nav-link">
+                    <Link className="nav-link" onClick={()=>setUserType('groups')}>
                       <div className="user_type_box">
                         <p className="text-light">
                           <small>Groups</small>

@@ -44,7 +44,7 @@ function GenreCards({ genre }) {
 
   return (
     <div className="support_view_movies">
-      <Link to={`/user_view_movie_by_genre/${newGenre}`}>
+      <Link to={`/user_view_movie_by_genre/${newGenre}`} className="nav-link" >
         <div className="genre_cards">
           <div className="genre_cards_img">
             {img ? (

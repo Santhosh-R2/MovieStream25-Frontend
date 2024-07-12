@@ -102,5 +102,19 @@ a{
   box-shadow: none !important;
 }
 
-/* .no_data_animation{
-} */
+.search_input{
+  background-color: #1a1a1a;
+  border: 1px solid rgba(128, 128, 128, 0.248);
+  /* color: #ffffff; */
+  }
+
+.user_add_members{
+  height: 70px;
+  width: 100%;
+  background-color: #111111;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.248);
+
+  /* padding: 10px 20px; */
+}
