@@ -14,10 +14,19 @@ function UserEditProfile() {
     const { name, value, files } = event.target;
     if (name === 'img') {
       setFormData((prevData) => ({ ...prevData, [name]: files[0] }));
+    } else if (name === 'dob') {
+      const selectedDate = new Date(value);
+      const currentDate = new Date();
+      if (selectedDate > currentDate) {
+        toast.warning("Date of Birth cannot be a future date");
+        return;
+      }
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
     } else {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
+  
 
   useEffect(() => {
     axiosInstance.post(`/viewUserById/${uid}`)
@@ -195,7 +204,7 @@ function UserEditProfile() {
                         />
                       </div> */}
                       <div className="col-12 mt-4">
-                        <button type="submit" className="button_bg">
+                        <button type="submit" className="btn bg_red">
                           Save Changes
                         </button>
                       </div>

@@ -8,7 +8,7 @@ function LandingNavbar() {
     <div>
       <div className="landing_nav"> 
         <div className="container landing_nav">
-          <Link to='/'>
+          <Link to='/' className="nav-link" >
             <div className="landing_nav_logo">
               <img src={logo} alt="logo" />
               <p>
@@ -17,7 +17,7 @@ function LandingNavbar() {
             </div>
           </Link>
           <div className="landing_nav_login">
-            <Link to='/user_login' ><p>Sign In</p></Link>
+            <Link to='/user_login' className="nav-link" ><p>Sign In</p></Link>
           </div>
         </div>
       </div>

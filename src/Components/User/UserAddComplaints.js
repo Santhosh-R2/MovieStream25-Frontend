@@ -13,11 +13,11 @@ function UserAddComplaints() {
     if (localStorage.getItem("userId") == null) {
       navigate("/");
     }
-  });
+  }, [navigate]);
 
   const id = localStorage.getItem("userId");
   const [userDetails, setUserDetails] = useState({});
-  const [complaint,setComplaint]=useState('')
+  const [complaint, setComplaint] = useState('');
 
   useEffect(() => {
     axiosInstance
@@ -27,29 +27,29 @@ function UserAddComplaints() {
         if (res.data.status === 200) {
           setUserDetails(res.data.data);
         } else {
-          console.log("Failed to fetch cast data");
+          console.log("Failed to fetch user data");
         }
       })
       .catch(() => {
-        console.log("Failed to fetch cast data");
+        console.log("Failed to fetch user data");
       });
-  }, []);
+  }, [id]);
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     axiosInstance
-      .post(`/createComplaint`,{userId:userDetails._id,complaint:complaint})
+      .post(`/createComplaint`, { userId: userDetails._id, complaint: complaint })
       .then((res) => {
         console.log(res);
         if (res.data.status === 200) {
-          toast.success('Complaint Added')
+          toast.success('Complaint Added');
+          setComplaint('');
         } else {
           toast.error("Failed to add");
-          setComplaint('')
         }
       })
       .catch(() => {
-        console.log("Failed to fetch cast data");
+        console.log("Failed to add complaint");
       });
   }
 
@@ -71,7 +71,7 @@ function UserAddComplaints() {
                 </p>
               </div>
               <div className="user_add_complaint_box1_img mt-3">
-                <img src={img} />
+                <img src={img} alt="Complaint Banner" />
               </div>
             </div>
             <div className="col-7">
@@ -84,31 +84,37 @@ function UserAddComplaints() {
                         <input
                           type="text"
                           placeholder="Enter Your Name"
-                          value={userDetails.name}
+                          value={userDetails.name || ''}
+                          readOnly
                         />
                       </div>
                       <div className="col-6 user_reg_input_grp mt-3">
                         <label>Contact</label>
-
                         <input
                           type="number"
-                          placeholder="Enter Your Name"
-                          value={userDetails.contact}
+                          placeholder="Enter Your Contact"
+                          value={userDetails.contact || ''}
+                          readOnly
                         />
                       </div>
                       <div className="col-12 user_reg_input_grp mt-4">
                         <label>E-mail</label>
-
                         <input
                           type="email"
-                          placeholder="Enter Your Name"
-                          value={userDetails.email}
+                          placeholder="Enter Your E-mail"
+                          value={userDetails.email || ''}
+                          readOnly
                         />
                       </div>
                       <div className="col-12 user_reg_input_grp mt-4">
                         <label>Message</label>
-
-                        <textarea placeholder="Enter Your Message" rows="5" onChange={(e)=>{setComplaint(e.target.value)}} required />
+                        <textarea
+                          placeholder="Enter Your Message"
+                          rows="5"
+                          value={complaint}
+                          onChange={(e) => setComplaint(e.target.value)}
+                          required
+                        />
                       </div>
                       <div className="d-flex justify-content-end mt-4">
                         <button type="submit" className="btn bg_red">Send Message</button>
@@ -121,7 +127,7 @@ function UserAddComplaints() {
           </div>
         </div>
       </div>
-      {userDetails.paymentStatus == false ? <SubscriptionBanner /> : ""}
+      {userDetails.paymentStatus === false && <SubscriptionBanner />}
     </div>
   );
 }

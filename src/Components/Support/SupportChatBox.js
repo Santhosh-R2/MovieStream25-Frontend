@@ -82,68 +82,12 @@ function SupportChatBox() {
     console.log("client");
   };
 
-  // const handleJnrSend = (e) => {
-  //   e.preventDefault();
-  //   axiosInstance
-  //     .post(`chatting`, {
-  //       msg: inputValue,
-  //       from: "advocates",
-  //       to: "jnrAdv",
-  //       advId: aid,
-  //       jrId: uid,
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.data.status === 200) {
-  //         setInputValue("");
-  //         setMessageList((prevMessageList) => [
-  //           ...prevMessageList,
-  //           res.data.data,
-  //         ]);
-  //       } else {
-  //         toast.error("Failed to send message");
-  //       }
-  //     })
-  //     .catch(() => {
-  //       toast.error("Failed to send message");
-  //     });
-  //   console.log("jnr");
-  // };
-
-  // const handleInternSend = (e) => {
-  //   e.preventDefault();
-  //   axiosInstance
-  //     .post(`chatting`, {
-  //       msg: inputValue,
-  //       from: "advocates",
-  //       to: "interns",
-  //       advId: aid,
-  //       internId: uid,
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.data.status === 200) {
-  //         setInputValue("");
-  //         setMessageList((prevMessageList) => [
-  //           ...prevMessageList,
-  //           res.data.data,
-  //         ]);
-  //       } else {
-  //         toast.error("Failed to send message");
-  //       }
-  //     })
-  //     .catch(() => {
-  //       toast.error("Failed to send message");
-  //     });
-  //   console.log("jnr");
-  // };
+  
 
   return (
     <div>
-      <div className="advocate_chat mt-4">
-        {messageList.length ? (
-          <div className="adv_chat_container">
-            <div className="chat-header">
+      <div className="advocate_chat mt-2">
+      <div className="chat-header">
               <img
                 src={`${imageUrl}/${userDetalis.img.filename}`}
                 className="img-fluid"
@@ -151,7 +95,10 @@ function SupportChatBox() {
               />
               <span className="fs-5 px-3 text-light">{userDetalis.name}</span>
             </div>
-            <div className="adv_chat-body p-5" ref={chatBodyRef}>
+        {messageList.length ? (
+          <div className="adv_chat_container">
+            
+            <div className="adv_chat-body p-5" id='min-80' ref={chatBodyRef}>
               {messageList.map((msg) => (
                 <div>
                   <div
@@ -181,7 +128,7 @@ function SupportChatBox() {
             </div>
           </div>
         ) : (
-          <div className="no_chat_container text-light">
+          <div className="no_chat_container text-light " id='min-80'>
             <h3>Please start the conversation.</h3>
           </div>
         )}

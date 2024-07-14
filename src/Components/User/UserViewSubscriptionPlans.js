@@ -27,8 +27,8 @@ function UserViewSubscriptionPlans() {
           console.log("Failed to fetch cast data");
         }
       })
-      .catch(() => {
-        console.log("Failed to fetch cast data");
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -40,11 +40,11 @@ function UserViewSubscriptionPlans() {
             console.log('subscription',res);
             navigate(`/user_subscription_payment/${price}/${res.data.data._id}`)
           } else {
-            console.log("Failed to fetch cast data");
+            console.log(res);
           }
         })
-        .catch(() => {
-          console.log("Failed to fetch cast data");
+        .catch((err) => {
+          console.log(err);
         });
   }
 

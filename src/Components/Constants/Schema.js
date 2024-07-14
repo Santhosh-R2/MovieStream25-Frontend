@@ -227,6 +227,7 @@ export const AddCastSchema = yup.object().shape({
 
 export const paymentSchema = yup.object().shape({
   cardName: yup.string()
+    .matches(/^[a-zA-Z\s]+$/, "Only letters are allowed")
     .min(2, "Enter minimum 2 characters")
     .required("Required"),
   cardNo: yup.number()

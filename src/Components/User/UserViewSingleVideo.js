@@ -10,7 +10,7 @@ function UserViewSingleVideo() {
   const navigate = useNavigate();
   const { id, img } = useParams();
   const uid = localStorage.getItem("userId");
-  
+
   const [movieData, setMovieData] = useState({ name: "", description: "" });
   const [userData, setUserData] = useState({ paymentStatus: false });
   const [wishlistMovies, setWishlistMovies] = useState([]);
@@ -20,7 +20,7 @@ function UserViewSingleVideo() {
 
   useEffect(() => {
     // Redirect to home if user is not logged in
-    if (!uid) { 
+    if (!uid) {
       navigate("/");
     }
 
@@ -59,7 +59,9 @@ function UserViewSingleVideo() {
         if (res.data.status === 200) {
           setWishlistMovies(res.data.data);
           // Check if the current movie is in the wishlist
-          const isMovieInWishlist = res.data.data.some((wishlistItem) => wishlistItem.movieId._id === id);
+          const isMovieInWishlist = res.data.data.some(
+            (wishlistItem) => wishlistItem.movieId._id === id
+          );
           setWishlistStatus(isMovieInWishlist);
         } else {
           console.log("Failed to fetch wishlist data");
@@ -70,31 +72,29 @@ function UserViewSingleVideo() {
       });
 
     // Fetch like count and user like status
-   
-
   }, [id, uid, navigate]);
 
-  useEffect(()=>{
+  useEffect(() => {
     axiosInstance
-    .post(`/countLikes/${id}`)
-    .then((res) => {
-      if (res.data.status === 200) {
-        setLikeCounts(res.data.count);
-      } else {
+      .post(`/countLikes/${id}`)
+      .then((res) => {
+        if (res.data.status === 200) {
+          setLikeCounts(res.data.count);
+        } else {
+          console.log("Failed to fetch like data");
+        }
+      })
+      .catch(() => {
         console.log("Failed to fetch like data");
-      }
-    })
-    .catch(() => {
-      console.log("Failed to fetch like data");
-    });
-  },[hasLiked])
+      });
+  }, [hasLiked]);
 
   const handleWishlist = () => {
     axiosInstance
       .post(`/addWishlist`, { userId: uid, movieId: id })
       .then((res) => {
         if (res.data.status === 200) {
-          toast('Added to Wishlist');
+          toast("Added to Wishlist");
           setWishlistStatus(true); // Update the state after adding to wishlist
         } else if (res.data.status === 409) {
           toast.warning(res.data.message);
@@ -142,7 +142,9 @@ function UserViewSingleVideo() {
             {userData.paymentStatus ? (
               <>
                 <Link to={`/user_play_movie/${id}/movie`}>
-                  <button className="btn bg_red text-light mx-2"><i className="ri-play-fill"></i> Play</button>
+                  <button className="btn bg_red text-light mx-2">
+                    <i className="ri-play-fill"></i> Play
+                  </button>
                 </Link>
                 <Link to={`/user_play_movie/${id}/trailer`}>
                   <button className="btn bg_icon text-light">Trailer</button>
@@ -151,18 +153,29 @@ function UserViewSingleVideo() {
             ) : (
               <>
                 <Link to={`/user_play_movie/${id}/trailer`}>
-                  <button className="btn bg_icon text-light mx-2">Trailer</button>
+                  <button className="btn bg_icon text-light mx-2">
+                    Trailer
+                  </button>
                 </Link>
                 <Link to={"/user_view_subscription"}>
-                  <button className="btn bg_red text-light">Subscribe Now</button>
+                  <button className="btn bg_red text-light">
+                    Subscribe Now
+                  </button>
                 </Link>
               </>
             )}
 
             {userData.paymentStatus && (
               <>
-                <button className="btn bg_icon mx-2 no-outline" onClick={handleWishlist}>
-                  <i className={`ri-heart-add-fill ${wishlistStatus ? 'text-danger' : 'text-light'}`}></i>
+                <button
+                  className="btn bg_icon mx-2 no-outline"
+                  onClick={handleWishlist}
+                >
+                  <i
+                    className={`ri-heart-add-fill ${
+                      wishlistStatus ? "text-danger" : "text-light"
+                    }`}
+                  ></i>
                 </button>
                 <button className="btn bg_icon no-outline" onClick={handleLike}>
                   <i className={`ri-thumb-up-fill`}></i>
@@ -171,9 +184,7 @@ function UserViewSingleVideo() {
                     // likeCounts>0?<small className="mx-1">{likeCounts}</small>:''
                   }
 
-<small className="mx-1">{likeCounts}</small>
-
-                  
+                  <small className="mx-1">{likeCounts}</small>
                 </button>
               </>
             )}

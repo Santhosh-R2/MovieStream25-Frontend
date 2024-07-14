@@ -153,8 +153,7 @@ function MovieInfo({ userType, type }) {
             </div>
             {userType == "user" && type == "movie" ? (
               <div className="col-12 user_single_video_review mt-2">
-                {movieCast.length ? (
-                  <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between">
                     <p className="user_single_video_container1_title mb-3">
                       Reviews
                     </p>
@@ -170,9 +169,11 @@ function MovieInfo({ userType, type }) {
                       </p>
                     </Link>
                   </div>
+                {/* {movieCast.length ? (
+                  
                 ) : (
                   ""
-                )}
+                )} */}
 
                 <div className="user_single_video_review_card_container">
                   {allReviews.length ? (

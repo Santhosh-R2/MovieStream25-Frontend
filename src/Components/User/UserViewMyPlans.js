@@ -83,9 +83,9 @@ function UserViewMyPlans() {
                       <span className="subscription_para fs-6"> - 1 month</span>
                     </p>
                     <div className="user_subscription_actions">
-                      <button className="btn bg_red text-light" onClick={()=>{handleDelete(plan._id)}}>
+                      {/* <button className="btn bg_red text-light" onClick={()=>{handleDelete(plan._id)}}>
                       Delete
-                    </button>
+                    </button> */}
                     </div>
                   </div>
                 </div>

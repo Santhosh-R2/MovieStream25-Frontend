@@ -11,7 +11,7 @@ function UserChatSidebar() {
   // const [userList, setUserList] = useState([]);
   const [groups, setGroups] = useState([]);
   const [support, setSupport] = useState(false);
-  const [userType,setUserType]=useState('all')
+  const [userType, setUserType] = useState("all");
 
   const id = localStorage.getItem("userId");
 
@@ -23,6 +23,18 @@ function UserChatSidebar() {
         if (res.data.status == 200) {
           setAllUsers(res.data.users);
           setSupport(res.data.support);
+        }
+      })
+      .catch(() => {
+        console.log("Failed to Add Case");
+      });
+
+    axiosInstance
+      .post(`viewgroupsByUserId/${id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status == 200) {
+          setGroups(res.data.data);
         }
       })
       .catch(() => {
@@ -49,54 +61,58 @@ function UserChatSidebar() {
               </span>
             </div>
           </div> */}
+            <div className="mt-3">
+              <div className="adv_chat_sidebar_search mb-2">
+                <>
+                  <Link className="nav-link" onClick={() => setUserType("all")}>
+                    <div className="user_type_box">
+                      <p className="text-light">
+                        <small>All</small>
+                      </p>
+                    </div>
+                  </Link>
 
-            {allUsers.length == 0 && support == false ? (
+                  <Link
+                    className="nav-link"
+                    onClick={() => setUserType("chats")}
+                  >
+                    <div className="user_type_box">
+                      <p className="text-light">
+                        <small>Chats</small>
+                      </p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    className="nav-link"
+                    onClick={() => setUserType("groups")}
+                  >
+                    <div className="user_type_box">
+                      <p className="text-light">
+                        <small>Groups</small>
+                      </p>
+                    </div>
+                  </Link>
+                  <Link
+                    className="nav-link"
+                    onClick={() => setUserType("support")}
+                  >
+                    <div className="user_type_box">
+                      <p className="text-light">
+                        <small>Support</small>
+                      </p>
+                    </div>
+                  </Link>
+                </>
+              </div>
+              <UserChatListNames userType={userType} />
+            </div>
+            {allUsers.length == 0 && support == false && groups.length == 0 ? (
               <div className="no_data_found_chat">
                 <p>No Recipient found</p>
               </div>
             ) : (
-              <div className="mt-3">
-                <div className="adv_chat_sidebar_search mb-2">
-                  <>
-                    <Link
-                      className="nav-link"
-                      onClick={()=>setUserType('all')}
-                    >
-                      <div className="user_type_box">
-                        <p className="text-light">
-                          <small>All</small>
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link className="nav-link" onClick={()=>setUserType('chats')}>
-                      <div className="user_type_box">
-                        <p className="text-light">
-                          <small>Chats</small>
-                        </p>
-                      </div>
-                    </Link>
-
-                    <Link className="nav-link" onClick={()=>setUserType('groups')}>
-                      <div className="user_type_box">
-                        <p className="text-light">
-                          <small>Groups</small>
-                        </p>
-                      </div>
-                    </Link>
-                    <Link className="nav-link" onClick={()=>setUserType('support')}>
-                      <div className="user_type_box">
-                        <p className="text-light">
-                          <small>Support</small>
-                        </p>
-                      </div>
-                    </Link>
-                  </>
-                </div>
-                  <UserChatListNames userType={userType} />
-                
-                
-              </div>
+              ""
             )}
           </div>
         </div>

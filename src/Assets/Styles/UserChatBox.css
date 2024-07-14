@@ -141,4 +141,32 @@
     justify-content: center;
     align-items: center;
   }
+
+  .grp_modal_container{
+    background-color: #1a1a1a;
+    /* border-bottom: 1px solid rgba(128, 128, 128, 0.452); */
+    padding: 20px;
+    min-height: 100px;
+  }
+
+  .group_modal_head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    width: 100%;
+    
+  }
+
+  .grp_modal_icon{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #dc3545;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+  }
+
+
   
