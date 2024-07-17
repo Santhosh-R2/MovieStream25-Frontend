@@ -226,8 +226,7 @@ function UserChatBox() {
   const [searchResults, setSearchResults] = useState([]);
   const [searchData, setSearchData] = useState("");
 
-
-  console.log('members',groupMembers);
+  console.log("members", groupMembers);
 
   useEffect(() => {
     if (searchData) {
@@ -323,6 +322,14 @@ function UserChatBox() {
   console.log("group", userDetalis);
   console.log("user", id);
 
+  const formatLocalTime = (utcTime) => {
+    const date = new Date(utcTime);
+    const localDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    return localDate.toISOString().slice(11, 16);
+  };
+
   return (
     <div>
       {type === "support" ? (
@@ -356,6 +363,9 @@ function UserChatBox() {
                           </span>
                         </div>
                         <p className="message-content fs-6">{msg.msg}</p>
+                        <div className="timestamp text-secondary d-flex justify-content-end">
+                          {formatLocalTime(msg.createdAt)}
+                        </div>
                       </div>
                     ) : (
                       ""
@@ -424,6 +434,9 @@ function UserChatBox() {
                             </span>
                           </div>
                           <p className="message-content">{msg.msg}</p>
+                          <div className="timestamp text-secondary d-flex justify-content-end">
+                            {formatLocalTime(msg.createdAt)}
+                          </div>
                         </div>
                       ) : (
                         ""
@@ -500,9 +513,14 @@ function UserChatBox() {
                         </li>
                       ) : (
                         <li>
-                          <button className="dropdown-item" onClick={() => {
-                          removeMember(fId);
-                        }}>Left Group</button>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => {
+                              removeMember(fId);
+                            }}
+                          >
+                            Left Group
+                          </button>
                         </li>
                       )
                     ) : (
@@ -538,6 +556,9 @@ function UserChatBox() {
                             </span>
                           </div>
                           <p className="message-content">{msg.msg}</p>
+                          <div className="timestamp text-secondary d-flex justify-content-end">
+                            {formatLocalTime(msg.createdAt)}
+                          </div>
                         </div>
                       ) : (
                         ""
@@ -560,7 +581,7 @@ function UserChatBox() {
               )}
             </div>
 
-            {userDetalis.status  ? (
+            {userDetalis.status ? (
               <form onSubmit={handleGroupSend}>
                 <div className="chat-input">
                   <input
@@ -612,23 +633,21 @@ function UserChatBox() {
               </div>
               <div className="modal-body p-0">
                 <div className="grp_modal_container group_modal_head">
-                  <div className="d-flex justify-content-center" >
+                  <div className="d-flex justify-content-center">
                     <div>
-                    <div className="adv_chat_sidebar_name_grp_info d-flex justify-content-center align-items-center m-auto">
-                      <p className="text-uppercase text-danger fs-1">
-                        <b>
-                          {userDetalis.title
-                            ? userDetalis.title.slice(0, 2)
-                            : ""}
-                        </b>
+                      <div className="adv_chat_sidebar_name_grp_info d-flex justify-content-center align-items-center m-auto">
+                        <p className="text-uppercase text-danger fs-1">
+                          <b>
+                            {userDetalis.title
+                              ? userDetalis.title.slice(0, 2)
+                              : ""}
+                          </b>
+                        </p>
+                      </div>
+                      <p className="fs-1 px-3 text-light text-center">
+                        {userDetalis.title}
                       </p>
                     </div>
-                    <p className="fs-1 px-3 text-light text-center">
-                      {userDetalis.title}
-                    </p>
-                    
-                    </div>
-                    
                   </div>
                 </div>
 

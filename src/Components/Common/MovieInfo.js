@@ -65,6 +65,8 @@ function MovieInfo({ userType, type }) {
       });
   }, [id]);
 
+  console.log(userType);
+
   return (
     <div>
       <div className="user_single_video_containers">
@@ -87,7 +89,7 @@ function MovieInfo({ userType, type }) {
                 <i className="ri-hourglass-2-fill"></i> Duration
               </p>
               <p className="mt-1">{movieData.duration} hrs</p>
-              
+
               <p className="user_single_video_container1_title mt-3">
                 <i className="ri-star-half-line"></i> CineStream Rating
               </p>
@@ -106,7 +108,8 @@ function MovieInfo({ userType, type }) {
                 <i className="ri-star-half-line"></i> IMDb
               </p>
               {/* <p className="mt-1">{movieData.imdb}</p> */}
-              <p>{!loading && (
+              <p>
+                {!loading && (
                   <ReactStars
                     count={10}
                     size={20}
@@ -114,7 +117,8 @@ function MovieInfo({ userType, type }) {
                     edit={false}
                     activeColor="#d62933"
                   />
-                )}</p>
+                )}
+              </p>
             </div>
             <div className="col-12 user_single_video_container1 mt-2">
               {movieCast.length ? (
@@ -151,12 +155,15 @@ function MovieInfo({ userType, type }) {
               </p>
               <p className="mt-1">{movieData.scriptWriter}</p>
             </div>
-            {userType == "user" && type == "movie" ? (
+            {(userType == "user" && type == "movie") ||
+            (userType == "other" && type == "movie") ||(userType == "admin" && type == "movie") ? (
               <div className="col-12 user_single_video_review mt-2">
                 <div className="d-flex justify-content-between">
-                    <p className="user_single_video_container1_title mb-3">
-                      Reviews
-                    </p>
+                  <p className="user_single_video_container1_title mb-3">
+                    Reviews
+                  </p>
+                  {userType == "user" ? 
+                  (
                     <Link
                       to={`/user_add_review/${id}`}
                       className="text-decoration-none"
@@ -168,12 +175,35 @@ function MovieInfo({ userType, type }) {
                         </b>
                       </p>
                     </Link>
-                  </div>
-                {/* {movieCast.length ? (
-                  
-                ) : (
-                  ""
-                )} */}
+                  ) : userType=='admin'?(
+                    <Link
+                      to={`/admin_view_reviews/${id}`}
+                      className="text-decoration-none"
+                    >
+                      <p className="text-danger mb-3">
+                        <b>
+                          {allReviews.length} reviews{" "}
+                          <i className="ri-arrow-right-s-line mt-2"></i>
+                        </b>
+                      </p>
+                    </Link>
+                  ):
+                  (
+                    <Link
+                      to={`/support_view_reviews/${id}`}
+                      className="text-decoration-none"
+                    >
+                      <p className="text-danger mb-3">
+                        <b>
+                          {allReviews.length} reviews{" "}
+                          <i className="ri-arrow-right-s-line mt-2"></i>
+                        </b>
+                      </p>
+                    </Link>
+                  )
+                
+                }
+                </div>
 
                 <div className="user_single_video_review_card_container">
                   {allReviews.length ? (
@@ -184,22 +214,53 @@ function MovieInfo({ userType, type }) {
                             src={`${imageUrl}/${cast.userId.img.filename}`}
                             alt=""
                           />
-                          <p className="mt-1 mx-3">{cast.name}</p>
+                          <p className="mt-1 mx-3">{cast.userId.name}</p>
                         </div>
                         <div className="mt-4">
-                          <p>
-                            {cast.review.slice(0, 400)}
-                            {cast.review.length > 400 ? (
-                              <Link
-                                to={`/user_add_review/${id}`}
-                                className="text-decoration-none"
-                              >
-                                <span className="text-danger"> ...more</span>
-                              </Link>
-                            ) : (
-                              ""
-                            )}
-                          </p>
+                          {userType == "user" ? 
+                          (
+                            <p>
+                              {cast.review.slice(0, 400)}
+                              {cast.review.length > 400 ? (
+                                <Link
+                                  to={`/user_add_review/${id}`}
+                                  className="text-decoration-none"
+                                >
+                                  <span className="text-danger"> ...more</span>
+                                </Link>
+                              ) : (
+                                ""
+                              )}
+                            </p>
+                          ) : userType=='admin'?<p>
+                          {cast.review.slice(0, 400)}
+                          {cast.review.length > 400 ? (
+                            <Link
+                              to={`/admin_view_reviews/${id}`}
+                              className="text-decoration-none"
+                            >
+                              <span className="text-danger"> ...more</span>
+                            </Link>
+                          ) : (
+                            ""
+                          )}
+                        </p>:
+                          
+                          (
+                            <p>
+                              {cast.review.slice(0, 400)}
+                              {cast.review.length > 400 ? (
+                                <Link
+                                  to={`/support_view_reviews/${id}`}
+                                  className="text-decoration-none"
+                                >
+                                  <span className="text-danger"> ...more</span>
+                                </Link>
+                              ) : (
+                                ""
+                              )}
+                            </p>
+                          )}
                         </div>
                       </div>
                     ))

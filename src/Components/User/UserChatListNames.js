@@ -291,7 +291,7 @@ function UserChatListNames({ userType }) {
           {chats.length
             ? chats.map((e, index) => (
                 <div key={index} className="adv_chat_sidebar_name mt-3">
-                  <Link to={`/advocate_single_chat/${e._id}/client`}>
+                  <Link to={`/user_single_chat/${e._id}/users`}>
                     <div className="d-flex">
                       <div className="adv_chat_sidebar_name_img">
                         <img

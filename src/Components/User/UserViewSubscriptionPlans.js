@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../Assets/Styles/UserSubscription.css";
 import axiosInstance from "../Constants/BaseUrl";
+import { toast } from "react-toastify";
 
 function UserViewSubscriptionPlans() {
   const navigate = useNavigate();
@@ -39,7 +40,11 @@ function UserViewSubscriptionPlans() {
           if (res.data.status === 200) {
             console.log('subscription',res);
             navigate(`/user_subscription_payment/${price}/${res.data.data._id}`)
-          } else {
+          } 
+          else if(res.data.status==400){
+            toast(res.data.message)
+          }
+          else{
             console.log(res);
           }
         })

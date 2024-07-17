@@ -30,7 +30,7 @@ function SupportChatBox() {
     axiosInstance
       .post(`viewChatBetweenuserandSupport/${id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.status === 200) {
           setMessageList(res.data.data);
         } else {
@@ -43,7 +43,7 @@ function SupportChatBox() {
     axiosInstance
       .post(`viewUserById/${id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.status === 200) {
           setUserDetails(res.data.data);
         } else {
@@ -65,7 +65,7 @@ function SupportChatBox() {
         toId:id
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.status === 200) {
           setInputValue("");
           setMessageList((prevMessageList) => [
@@ -82,7 +82,15 @@ function SupportChatBox() {
     console.log("client");
   };
 
-  
+  const formatLocalTime = (utcTime) => {
+    const date = new Date(utcTime);
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return localDate.toISOString().slice(11, 16);
+  };
+
+
+
+  console.log(messageList);
 
   return (
     <div>
@@ -113,15 +121,18 @@ function SupportChatBox() {
                       <span className="username">
                         <small>
                           {msg.from == "users"
-                              ? msg.userId.name
+                              ? msg.fromId.name
                               : 'Support'}
                         </small>
                       </span>
                       <span className="timestamp text-light">
                         {msg.createdAt.slice(0, 10)}
                       </span>
-                    </div>
+                    </div> 
                     <p className="message-content fs-5">{msg.msg}</p>
+                    <div className="timestamp text-secondary d-flex justify-content-end" >
+                    {formatLocalTime(msg.createdAt)}
+                    </div>
                   </div>
                 </div>
               ))}

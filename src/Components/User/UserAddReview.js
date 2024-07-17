@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { imageUrl } from "../Constants/Image_Url";
 import ReactStars from "react-rating-stars-component";
 
-function UserAddReview() {
+function UserAddReview() { 
   const { id } = useParams();
   const uid = localStorage.getItem("userId");
 

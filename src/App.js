@@ -75,6 +75,7 @@ function App() {
         <Route path='/support_edit_movie/:id' element={[<SupportCall type='support_edit_movie' />]} />
         <Route path='/support_view_complaints' element={[<SupportCall type='support_view_complaints' />]} />
         <Route path='/support_chat/:id' element={[<SupportCall type='support_chat' />]} />
+        <Route path='/support_view_reviews/:id' element={[<SupportCall type='view_review' />]} />
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />
@@ -89,6 +90,8 @@ function App() {
         <Route path='/admin_edit_subscription_plan/:id' element={<AdminCall type='edit_subscription' />} />
         <Route path='/admin_view_complaints' element={<AdminCall type='view_complaints' />} />
         <Route path='/admin_view_users' element={<AdminCall type='view_users' />} />
+        <Route path='/admin_view_reviews/:id' element={[<AdminCall type='view_review' />]} />
+
       </Routes>
     </div>
     <Footer/>

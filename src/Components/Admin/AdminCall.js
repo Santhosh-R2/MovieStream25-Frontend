@@ -12,6 +12,7 @@ import AdminViewSubscription from "./AdminViewSubscription";
 import AdminEditSubscription from "./AdminEditSubscription";
 import AdminViewComplaints from "./AdminViewComplaints";
 import AdminViewAllUsers from "./AdminViewAllUsers";
+import ViewReviews from "../Common/ViewReviews";
 
 function AdminCall({ type }) {
 
@@ -44,7 +45,7 @@ function AdminCall({ type }) {
           ) : type === "approved_movies_by_id" ? (
             <AdminViewSingleMovieReq type='view'  />
           ) : type === "admin_play_movie" ? (
-            <PlayVideo  />
+            <PlayVideo userType='admin'  />
           ) : type === "add_subscription" ? (
             <AdminAddSubscribtion  />
           ) : type === "view_subscription" ? (
@@ -55,6 +56,8 @@ function AdminCall({ type }) {
             <AdminViewComplaints  />
           ) : type === "view_users" ? (
             <AdminViewAllUsers  />
+          ) : type === "view_review" ? (
+            <ViewReviews  />
           ) : (
             ""
           )}

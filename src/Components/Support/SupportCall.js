@@ -10,6 +10,7 @@ import PlayVideo from "../Common/PlayVideo";
 import SupportEditMovie from "./SupportEditMovie";
 import SupportViewComplaints from "./SupportViewComplaints";
 import SupportChatBox from "./SupportChatBox";
+import ViewReviews from "../Common/ViewReviews";
 
 function SupportCall({ type }) {
 
@@ -42,13 +43,15 @@ function SupportCall({ type }) {
           ) : type == "view_movie_by_id" ? (
             <SupportViewSingleMovie /> 
           ) : type == "support_play_movie" ? (
-            <PlayVideo /> 
+            <PlayVideo userType='other' /> 
           ) : type == "support_edit_movie" ? (
             <SupportEditMovie /> 
           ) : type == "support_view_complaints" ? (
             <SupportViewComplaints /> 
           ) : type == "support_chat" ? (
             <SupportChatBox /> 
+          ) : type == "view_review" ? (
+            <ViewReviews /> 
           ) : (
             ""
           )}
