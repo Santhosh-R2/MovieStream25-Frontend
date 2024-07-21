@@ -41,6 +41,10 @@ function SupportSidebar() {
                 <Link to={'/support_dashboard'}>
                 <label className="label-sub">Home</label></Link>
               </div>
+              <div className="adjust-space">
+                <Link to={'/support_view_users'}>
+                <label className="label-sub">Users</label></Link>
+              </div>
               <div className="adjust-space" onClick={toggleMoviesDropdown}>
                 <label className="label-sub">Movies</label>
               </div>

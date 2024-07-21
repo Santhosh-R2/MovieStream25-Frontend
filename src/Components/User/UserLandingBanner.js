@@ -44,7 +44,7 @@ function UserLandingBanner() {
           <div className="userLandingBannerContent">
             <h1 className="userLandingBannerTitle">{movie.name}</h1> 
             <div className="userLandingBannerButtons">
-              <Link to={`/user_view_single_movie/${movie._id}/${movie.thumbnail.filename}`}>
+              <Link to={`/user-view-single-movie/${movie._id}/${movie.thumbnail.filename}`}>
               <button className="button">Play</button>
               </Link>
               <h1 className="userLandingBannerDescription">

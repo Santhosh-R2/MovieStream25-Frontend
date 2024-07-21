@@ -50,7 +50,7 @@ function App() {
         <Route path='/user_prefer_genre' element={[<UserPreferGenre/>]} />
         <Route path='/user_home' element={[<UserNavbar/>,<UserHome/>]} />
         <Route path='/user_view_movie_by_genre/:genre' element={[<UserNavbar/>,<MovieByGenre/>]} />
-        <Route path='/user_view_single_movie/:id/:img' element={[<UserNavbar/>,<UserViewSingleVideo/>]} />
+        <Route path='/user-view-single-movie/:id/:img' element={[<UserNavbar/>,<UserViewSingleVideo/>]} />
         <Route path='/user_add_complaint' element={[<UserNavbar/>,<UserAddComplaints/>]} />
         <Route path='/user_view_subscription' element={[<UserNavbar/>,<UserViewSubscriptionPlans/>]} />
         <Route path='/user_subscription_payment/:cost/:id' element={[<UserNavbar/>,<UserSubscriptionPayment/>]} />
@@ -76,6 +76,7 @@ function App() {
         <Route path='/support_view_complaints' element={[<SupportCall type='support_view_complaints' />]} />
         <Route path='/support_chat/:id' element={[<SupportCall type='support_chat' />]} />
         <Route path='/support_view_reviews/:id' element={[<SupportCall type='view_review' />]} />
+        <Route path='/support_view_users' element={[<SupportCall type='view_users' />]} />
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />
@@ -91,6 +92,7 @@ function App() {
         <Route path='/admin_view_complaints' element={<AdminCall type='view_complaints' />} />
         <Route path='/admin_view_users' element={<AdminCall type='view_users' />} />
         <Route path='/admin_view_reviews/:id' element={[<AdminCall type='view_review' />]} />
+        <Route path='/admin_view_recently_played_movies/:id' element={[<AdminCall type='recently_played_movies' />]} />
 
       </Routes>
     </div>

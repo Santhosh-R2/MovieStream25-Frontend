@@ -13,6 +13,7 @@ import AdminEditSubscription from "./AdminEditSubscription";
 import AdminViewComplaints from "./AdminViewComplaints";
 import AdminViewAllUsers from "./AdminViewAllUsers";
 import ViewReviews from "../Common/ViewReviews";
+import AdminViewRecentlyPlayed from "./AdminViewRecentlyPlayed";
 
 function AdminCall({ type }) {
 
@@ -58,6 +59,8 @@ function AdminCall({ type }) {
             <AdminViewAllUsers  />
           ) : type === "view_review" ? (
             <ViewReviews  />
+          ) : type === "recently_played_movies" ? (
+            <AdminViewRecentlyPlayed  />
           ) : (
             ""
           )}

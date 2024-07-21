@@ -6,8 +6,7 @@ import { imageUrl } from "../Constants/Image_Url";
 import { toast } from "react-toastify";
 
 function SupportViewMoviesCard() {
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("supportId") == null) {
@@ -15,7 +14,9 @@ function SupportViewMoviesCard() {
     }
   });
 
-  const [movieData, setMovieData] = useState([]); 
+  const [movieData, setMovieData] = useState([]);
+  const [searchInfo, setSearchInfo] = useState("");
+  const [searcResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     axiosInstance
@@ -33,13 +34,31 @@ function SupportViewMoviesCard() {
       });
   }, []);
 
+  useEffect(() => {
+    axiosInstance
+      .post(`/searchMovies/${searchInfo}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === 200) {
+          setMovieData(res.data.data);
+        } else {
+          console.log("Failed to fetch cast data");
+          // setSearchResults([]);
+        }
+      })
+      .catch(() => {
+        console.log("Failed to fetch cast data");
+        // setSearchResults([]);
+      });
+  }, [searchInfo]);
+
   const handleReject = (movieId) => {
     axiosInstance
       .post(`/deleteMovieById/${movieId}`)
       .then((res) => {
         console.log(res);
         if (res.data.status === 200) {
-          toast.success('Movie Removed');
+          toast.success("Movie Removed");
           setMovieData((prevData) =>
             prevData.filter((movie) => movie._id !== movieId)
           );
@@ -55,7 +74,18 @@ function SupportViewMoviesCard() {
   return (
     <div className="support_view_movies">
       <div className="container">
+      <div className="w-25 mt-4">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search Movies"
+              aria-label="Search"
+              onChange={(e) => setSearchInfo(e.target.value)}
+            />
+          </div>
         <div className="row">
+
+          
           {movieData.length ? (
             movieData.map((movie) => {
               return (
@@ -76,7 +106,9 @@ function SupportViewMoviesCard() {
                     </div>
                     <div className="support_view_movies_cards_actions">
                       <div className="support_view_movies_cards_actions_view">
-                        <Link to={`/support_view_single_movie/${movie._id}/${movie.thumbnail.filename}`} >
+                        <Link
+                          to={`/support_view_single_movie/${movie._id}/${movie.thumbnail.filename}`}
+                        >
                           <p>
                             <i class="ri-eye-line"></i> View
                           </p>
@@ -84,15 +116,18 @@ function SupportViewMoviesCard() {
                       </div>
 
                       <div className="support_view_movies_cards_actions_approval">
-                        
-                        <Link to={`/support_edit_movie/${movie._id}`} >
+                        <Link to={`/support_edit_movie/${movie._id}`}>
                           <div className="support_view_movies_cards_actions_accept mx-2 fs-5">
-                          <i class="ri-file-edit-line"></i>
+                            <i class="ri-file-edit-line"></i>
                           </div>
                         </Link>
-                        <Link onClick={()=>{handleReject(movie._id)}} >
+                        <Link
+                          onClick={() => {
+                            handleReject(movie._id);
+                          }}
+                        >
                           <div className="support_view_movies_cards_actions_reject fs-5">
-                          <i class="ri-delete-bin-6-line"></i>
+                            <i class="ri-delete-bin-6-line"></i>
                           </div>
                         </Link>
                       </div>

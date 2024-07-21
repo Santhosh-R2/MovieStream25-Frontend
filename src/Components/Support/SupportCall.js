@@ -11,6 +11,7 @@ import SupportEditMovie from "./SupportEditMovie";
 import SupportViewComplaints from "./SupportViewComplaints";
 import SupportChatBox from "./SupportChatBox";
 import ViewReviews from "../Common/ViewReviews";
+import SupportViewAllUsers from "./SupportViewAllUsers";
 
 function SupportCall({ type }) {
 
@@ -52,6 +53,8 @@ function SupportCall({ type }) {
             <SupportChatBox /> 
           ) : type == "view_review" ? (
             <ViewReviews /> 
+          ) : type == "view_users" ? (
+            <SupportViewAllUsers /> 
           ) : (
             ""
           )}

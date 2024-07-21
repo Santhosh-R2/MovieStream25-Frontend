@@ -1,19 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import axiosInstance from "../Constants/BaseUrl";
-import { imageUrl } from "../Constants/Image_Url";
+import React, { useEffect, useState } from 'react'
+import axiosInstance from '../Constants/BaseUrl';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { imageUrl } from '../Constants/Image_Url';
+function AdminViewRecentlyPlayed() {
 
-function MovieByGenre() {
-  const [movieData, setMovieData] = useState([]);
-  const { genre } = useParams();
+    const navigate=useNavigate()
+
+  useEffect(() => {
+    if (localStorage.getItem("adminId") == null) {
+      navigate("/");
+    }
+  });
+
+    const [movieData, setMovieData] = useState([]);
+    const {id}=useParams()
 
   useEffect(() => {
     axiosInstance
-      .post(`/getMoviesByGenre/${genre}`)
+      .post(`/viewHistoryByUserId/${id}`)
       .then((res) => {
         console.log(res);
         if (res.data.status === 200) {
-          setMovieData(res.data.data);
+            const movieIds = res.data.data.map((movie) => movie.movieId);
+          setMovieData(movieIds);
         } else {
           console.log("Failed to fetch cast data");
         }
@@ -21,18 +30,16 @@ function MovieByGenre() {
       .catch(() => {
         console.log("Failed to fetch cast data");
       });
-  }, [genre]);
+  }, []);
 
   return (
-    <div className="support_view_movies mt-5 pt-5 mb-5 pb-5">
+    <div className="support_view_movies">
       <div className="container">
         <div className="row">
           {movieData.length ? (
-            movieData.map((movie) => (
-              <div className="col-3" key={movie._id}>
-                <Link
-                  to={`/user-view-single-movie/${movie._id}/${movie.thumbnail.filename}`}
-                >
+            movieData.map((movie) => {
+              return (
+                <div className="col-3">
                   <div className="support_view_movies_cards">
                     <div className="support_view_movies_cards_img">
                       <img
@@ -49,28 +56,28 @@ function MovieByGenre() {
                     </div>
                     <div className="support_view_movies_cards_actions">
                       <div className="support_view_movies_cards_actions_view">
-                        <Link
-                          to={`/user-view-single-movie/${movie._id}/${movie.thumbnail.filename}`}
-                        >
+                        <Link to={`/admin_view_single_approved_movies/${movie._id}/${movie.thumbnail.filename}`} >
                           <p>
-                            <i className="ri-eye-line"></i> View
+                            <i class="ri-eye-line"></i> View
                           </p>
                         </Link>
                       </div>
+
+                     
                     </div>
                   </div>
-                </Link>
-              </div>
-            ))
+                </div>
+              );
+            })
           ) : (
             <div className="no_data_found">
-              <p>No Movies Found</p>
+              <p>No History Found</p>
             </div>
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default MovieByGenre;
+export default AdminViewRecentlyPlayed

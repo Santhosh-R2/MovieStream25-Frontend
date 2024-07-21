@@ -299,26 +299,6 @@ function UserChatBox() {
       });
   }
 
-  // function removeMember(memberId) {
-  //   console.log(memberId);
-  //   axiosInstance
-  // .post(`removeUserToGroup/${memberId}`, { groupId: userDetalis._id })
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.data.status === 200) {
-  //         toast(res.data.msg);
-  //         setGroupMembers((prevMembers) =>
-  //           prevMembers.filter((member) => member.memberId._id !== memberId)
-  //         );
-  //       } else {
-  //         toast.warning("Something went wrong!");
-  //       }
-  //     })
-  //     .catch(() => {
-  //       console.log("Failed to Add Case");
-  //     });
-  // }
-
   console.log("group", userDetalis);
   console.log("user", id);
 
@@ -329,6 +309,21 @@ function UserChatBox() {
     );
     return localDate.toISOString().slice(11, 16);
   };
+
+  const renderMessageContent = (message) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = message.split(urlRegex);
+    return parts.map((part, index) => 
+      urlRegex.test(part) ? (
+        <Link key={index} to={part} rel="noopener noreferrer" className="nav-link">
+          {part}
+        </Link>
+      ) : (
+        <span key={index}>{part}</span>
+      )
+    );
+  };
+
 
   return (
     <div>
@@ -362,8 +357,8 @@ function UserChatBox() {
                             {msg.createdAt.slice(0, 10)}
                           </span>
                         </div>
-                        <p className="message-content fs-6">{msg.msg}</p>
-                        <div className="timestamp text-secondary d-flex justify-content-end">
+                        <p className="message-content">{renderMessageContent(msg.msg)}</p>
+                        <div className="timestamp text-light d-flex justify-content-end">
                           {formatLocalTime(msg.createdAt)}
                         </div>
                       </div>
@@ -433,8 +428,8 @@ function UserChatBox() {
                               {msg.createdAt.slice(0, 10)}
                             </span>
                           </div>
-                          <p className="message-content">{msg.msg}</p>
-                          <div className="timestamp text-secondary d-flex justify-content-end">
+                          <p className="message-content">{renderMessageContent(msg.msg)}</p>
+                          <div className="timestamp text-light d-flex justify-content-end">
                             {formatLocalTime(msg.createdAt)}
                           </div>
                         </div>
@@ -555,8 +550,8 @@ function UserChatBox() {
                               {msg.createdAt ? msg.createdAt.slice(0, 10) : ""}
                             </span>
                           </div>
-                          <p className="message-content">{msg.msg}</p>
-                          <div className="timestamp text-secondary d-flex justify-content-end">
+                          <p className="message-content">{renderMessageContent(msg.msg)}</p>
+                          <div className="timestamp text-light d-flex justify-content-end">
                             {formatLocalTime(msg.createdAt)}
                           </div>
                         </div>
@@ -653,7 +648,6 @@ function UserChatBox() {
 
                 <div className="grp_modal_container group_modal_details mt-2">
                   <p className="text-danger">Group Details</p>
-                  {/* <p className="text-secondary" >Group - 13 members</p> */}
                   <p className="text-secondary">
                     Group Created by{" "}
                     {`${
@@ -714,7 +708,6 @@ function UserChatBox() {
                           <div className="d-flex">
                             <div className="adv_chat_sidebar_name_img">
                               <img
-                                // src={img}
                                 src={`${imageUrl}/${
                                   e.adminId?.img.filename ||
                                   e.memberId?.img.filename
@@ -758,15 +751,6 @@ function UserChatBox() {
                 </div>
               </div>
 
-              {/* <div className="modal-footer border-0">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Close
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
@@ -792,7 +776,6 @@ function UserChatBox() {
                 ></button>
               </div>
               <div className="modal-body p-0 pt-3">
-                {/* <div className="grp_modal_container group_modal_head"> */}
                 <p className="fs-6 px-3 text-light">
                   Invite Members to the Group
                 </p>
@@ -867,15 +850,7 @@ function UserChatBox() {
                     })
                   : ""}
               </div>
-              {/* <div className="modal-footer border-0">
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => setIsAddMembersModalOpen(false)}
-          >
-            Close
-          </button>
-        </div> */}
+             
             </div>
           </div>
         </div>

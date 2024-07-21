@@ -19,7 +19,6 @@ function UserViewSingleVideo() {
   const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
-    // Redirect to home if user is not logged in
     if (!uid) {
       navigate("/");
     }
@@ -125,7 +124,31 @@ function UserViewSingleVideo() {
       });
   };
 
+  const handlePlay = () => {
+    console.log("uid", uid);
+    console.log("mid", id);
+    axiosInstance
+      .post(`/addHistory`, { userId: uid, movieId: id })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {
+        console.log("Failed to add like");
+      });
+  };
+
   console.log(hasLiked);
+
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      console.log('URL copied to clipboard');
+      toast('Link copied')
+    }).catch(err => {
+      console.log('Failed to copy URL: ', err);
+    });
+  };
+  
 
   return (
     <div>
@@ -142,7 +165,10 @@ function UserViewSingleVideo() {
             {userData.paymentStatus ? (
               <>
                 <Link to={`/user_play_movie/${id}/movie`}>
-                  <button className="btn bg_red text-light mx-2">
+                  <button
+                    className="btn bg_red text-light mx-2"
+                    onClick={handlePlay}
+                  >
                     <i className="ri-play-fill"></i> Play
                   </button>
                 </Link>
@@ -179,12 +205,10 @@ function UserViewSingleVideo() {
                 </button>
                 <button className="btn bg_icon no-outline" onClick={handleLike}>
                   <i className={`ri-thumb-up-fill`}></i>
-                  {/* <i className={`ri-thumb-up-fill ${hasLiked ? 'text-primary' : ''}`}></i> */}
-                  {
-                    // likeCounts>0?<small className="mx-1">{likeCounts}</small>:''
-                  }
-
                   <small className="mx-1">{likeCounts}</small>
+                </button>
+                <button className="btn bg_icon no-outline mx-2" onClick={copyToClipboard}>
+                  <i class="ri-file-copy-line"></i>
                 </button>
               </>
             )}
@@ -192,7 +216,7 @@ function UserViewSingleVideo() {
         </div>
       </div>
 
-      <MovieInfo />
+      <MovieInfo userType="user" type="movie" />
     </div>
   );
 }

@@ -217,7 +217,7 @@ function MovieInfo({ userType, type }) {
                           <p className="mt-1 mx-3">{cast.userId.name}</p>
                         </div>
                         <div className="mt-4">
-                          {userType == "user" ? 
+                          {userType == "user" ?  
                           (
                             <p>
                               {cast.review.slice(0, 400)}

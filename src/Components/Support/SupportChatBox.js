@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import img from "../../Assets/Images/Action.jpg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosInstance from "../Constants/BaseUrl";
 import { imageUrl } from "../Constants/Image_Url";
 
 function SupportChatBox() {
   const { id } = useParams();
-  // const { type } = useParams();
-
-
-
-  // const aid = localStorage.getItem("advocateId");
 
   const [messageList, setMessageList] = useState([
   ]);
@@ -89,6 +84,26 @@ function SupportChatBox() {
   };
 
 
+  const renderMessageContent = (message) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = message.split(urlRegex);
+    return parts.map((part, index) => 
+      urlRegex.test(part) ? (
+        <Link 
+          key={index} 
+          to={`/support_view_single_movie/${part.split('/movie_streaming/user-view-single-movie/')[1]}`} 
+          rel="noopener noreferrer" 
+          className="nav-link text-decoration-underline"
+        >
+          {part}
+        </Link>
+      ) : (
+        <span key={index}>{part}</span>
+      )
+    );
+  };
+
+
 
   console.log(messageList);
 
@@ -129,8 +144,9 @@ function SupportChatBox() {
                         {msg.createdAt.slice(0, 10)}
                       </span>
                     </div> 
-                    <p className="message-content fs-5">{msg.msg}</p>
-                    <div className="timestamp text-secondary d-flex justify-content-end" >
+                    {/* <p className="message-content">{msg.msg}</p> */}
+                    <p className="text-wrap message-content">{renderMessageContent(msg.msg)}</p>
+                    <div className="timestamp text-light d-flex justify-content-end" >
                     {formatLocalTime(msg.createdAt)}
                     </div>
                   </div>

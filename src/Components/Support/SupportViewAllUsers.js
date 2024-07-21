@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../Constants/BaseUrl";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+function SupportViewAllUsers() {
 
-function AdminViewAllUsers() {
-  const [userId, setUserId] = useState([]);
+    const [userId, setUserId] = useState([]);
 
   useEffect(() => {
     axiosInstance
@@ -22,24 +21,6 @@ function AdminViewAllUsers() {
       });
   }, []);
 
-  const handleReject = (userId) => {
-    axiosInstance
-      .post(`/deleteUserById/${userId}`)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === 200) {
-          toast.success("Removed");
-          setUserId((prevData) =>
-            prevData.filter((user) => user._id !== userId)
-          );
-        } else {
-          toast.error("Failed to Removed");
-        }
-      })
-      .catch(() => {
-        toast.error("Failed to Removed");
-      });
-  };
 
   return (
     <div>
@@ -52,7 +33,6 @@ function AdminViewAllUsers() {
               <th scope="col">Contact</th>
               <th scope="col">Genres</th>
               <th scope="col">Languages</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -82,23 +62,7 @@ function AdminViewAllUsers() {
                         ))
                       : ""}
                   </td>
-                  <td className="d-flex" >
-                    <button
-                      type="button"
-                      className="btn btn-outline-danger mx-1"
-                      onClick={() => {
-                        handleReject(user._id);
-                      }}
-                    >
-                      <i class="ri-delete-bin-6-line"></i>
-                    </button>
-                    <Link to={`/admin_view_recently_played_movies/${user._id}`}>
-                    <button type="button" className="btn btn-outline-success">
-                      <i class="ri-history-line"></i>
-                    </button>
-                    </Link>
-                    
-                  </td>
+                 
                 </tr>
               );
             })}
@@ -110,7 +74,7 @@ function AdminViewAllUsers() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default AdminViewAllUsers;
+export default SupportViewAllUsers

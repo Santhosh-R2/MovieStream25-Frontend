@@ -40,11 +40,13 @@ function UserHome() {
   return (
     <div>
       <UserLandingBanner />
+      
+      <UserVideoCards title="Recently Played" />
       {/* <GenreCall/> */}
       <div className="container">
         <div className="row">
           {
-            genre.length?<h4 className="mt-3 text-light" >For You</h4>:''
+            genre.length?<h4 className="mt-3 text-light" >Our Genres</h4>:''
           }
           {genre.length
             ? genre.map((genre) => {
@@ -57,12 +59,15 @@ function UserHome() {
             : ""}
         </div>
       </div>
-      <UserVideoCards title="Action" />
-      <UserVideoCards title="Drama" />
-      <UserVideoCards title="Comedy" />
-      <UserVideoCards title="Horror" />
-      <UserVideoCards title="Romantic" />
-      <UserVideoCards title="Documentary" />
+      <UserVideoCards title="For You" />
+      <UserVideoCards title="Top 10" />
+      <UserVideoCards title="New Releases" isSmall />
+      <UserVideoCards title="Action" isSmall />
+      <UserVideoCards title="Drama" isSmall />
+      <UserVideoCards title="Comedy" isSmall />
+      <UserVideoCards title="Horror" isSmall />
+      <UserVideoCards title="Romantic" isSmall />
+      <UserVideoCards title="Documentary" isSmall />
       {userDetails.paymentStatus == false ? <SubscriptionBanner /> : ""}
     </div>
   );

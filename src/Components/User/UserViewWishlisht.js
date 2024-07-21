@@ -79,7 +79,7 @@ function UserViewWishlisht() {
                       <div className="support_view_movies_cards_actions">
                         <div className="support_view_movies_cards_actions_view">
                           <Link
-                            to={`/user_view_single_movie/${movie.movieId._id}/${movie.movieId.thumbnail.filename}`}
+                            to={`/user-view-single-movie/${movie.movieId._id}/${movie.movieId.thumbnail.filename}`}
                           >
                             <p>
                               <i class="ri-eye-line"></i> View

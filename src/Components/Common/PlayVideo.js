@@ -30,7 +30,7 @@ function PlayVideo({userType}) {
 
   return (
     <div>
-      <div className="video-player mt-3">
+      <div className="video-player mt-3"> 
         <video
           width="100%"
           controls

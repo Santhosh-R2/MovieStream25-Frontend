@@ -95,7 +95,7 @@ function SupportViewSingleMovie() {
           </div>
         </div>
       </div>
-      <MovieInfo />
+      <MovieInfo userType='other' type='movie' />
     </div>
   );
 }

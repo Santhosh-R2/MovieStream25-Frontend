@@ -126,7 +126,7 @@ function AdminViewSingleMovieReq({ type }) {
           </div>
         </div>
       </div>
-            <MovieInfo  />
+            <MovieInfo userType='admin' type='movie'  />
       
     </div>
   );
