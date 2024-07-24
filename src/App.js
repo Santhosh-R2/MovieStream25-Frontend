@@ -31,6 +31,7 @@ import UserViewMyPlans from "./Components/User/UserViewMyPlans";
 import UserEditProfile from "./Components/User/UserEditProfile";
 import UserChat from "./Components/User/UserChat";
 import UserAddReview from "./Components/User/UserAddReview";
+import SupportViewReports from "./Components/Support/SupportViewReports";
 
 
 
@@ -77,6 +78,7 @@ function App() {
         <Route path='/support_chat/:id' element={[<SupportCall type='support_chat' />]} />
         <Route path='/support_view_reviews/:id' element={[<SupportCall type='view_review' />]} />
         <Route path='/support_view_users' element={[<SupportCall type='view_users' />]} />
+        <Route path='/support_chat' element={<SupportViewReports/>} />
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />
