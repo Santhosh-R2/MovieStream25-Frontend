@@ -12,10 +12,10 @@ import SupportViewComplaints from "./SupportViewComplaints";
 import SupportChatBox from "./SupportChatBox";
 import ViewReviews from "../Common/ViewReviews";
 import SupportViewAllUsers from "./SupportViewAllUsers";
+import SupportViewWatchHistory from "./SupportViewWatchHistory";
 
 function SupportCall({ type }) {
-
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("supportId") == null) {
@@ -40,21 +40,23 @@ function SupportCall({ type }) {
           ) : type == "add_cast" ? (
             <SupportAddCast />
           ) : type == "view_movies" ? (
-            <SupportViewMoviesCard /> 
+            <SupportViewMoviesCard />
           ) : type == "view_movie_by_id" ? (
-            <SupportViewSingleMovie /> 
+            <SupportViewSingleMovie />
           ) : type == "support_play_movie" ? (
-            <PlayVideo userType='other' /> 
+            <PlayVideo userType="other" />
           ) : type == "support_edit_movie" ? (
-            <SupportEditMovie /> 
+            <SupportEditMovie />
           ) : type == "support_view_complaints" ? (
-            <SupportViewComplaints /> 
+            <SupportViewComplaints />
           ) : type == "support_chat" ? (
-            <SupportChatBox /> 
+            <SupportChatBox />
           ) : type == "view_review" ? (
-            <ViewReviews /> 
+            <ViewReviews />
           ) : type == "view_users" ? (
-            <SupportViewAllUsers /> 
+            <SupportViewAllUsers />
+          ) : type == "recently_played_movies" ? (
+            <SupportViewWatchHistory />
           ) : (
             ""
           )}

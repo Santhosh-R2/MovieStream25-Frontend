@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../Constants/BaseUrl";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 function SupportViewAllUsers() {
 
     const [userId, setUserId] = useState([]);
@@ -33,6 +34,7 @@ function SupportViewAllUsers() {
               <th scope="col">Contact</th>
               <th scope="col">Genres</th>
               <th scope="col">Languages</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +64,13 @@ function SupportViewAllUsers() {
                         ))
                       : ""}
                   </td>
-                 
+                 <td>
+                 <Link to={`/support_view_recently_played_movies/${user._id}`}>
+                    <button type="button" className="btn btn-outline-success">
+                      <i class="ri-history-line"></i>
+                    </button>
+                    </Link>
+                 </td>
                 </tr>
               );
             })}

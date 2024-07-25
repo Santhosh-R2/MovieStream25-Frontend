@@ -3,6 +3,7 @@ import "../../Assets/Styles/AdminDashboard.css";
 import img from "../../Assets/Images/admin.jpg";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../Constants/BaseUrl";
+import SupportViewReports from "../Support/SupportViewReports";
 
 function AdminDashboard() {
 
@@ -95,16 +96,27 @@ function AdminDashboard() {
               </div>
             </div>
           </div>
-          <div className="col-12 d-flex align-items-center">
+          <div className="col-6 mt-3">
+                  <div className="">
+                    <div>
+                      <p className="admin_dashboard_head_title text-light ">
+                        Movie Reports
+                      </p>
+                    <SupportViewReports/>
+                      
+                    </div>
+                  </div>
+                </div>
+          <div className="col-6 d-flex align-items-center">
             <div className="admin_dashboard_card_container">
-              <div className="admin_dashboard_cards">
+              <div className="admin_dashboard_cards_new">
                 <div>
-                  <div className="admin_dashboard_cards_icon">
+                  <div className="admin_dashboard_cards_icon mx-1">
                     <i class="ri-user-line"></i>
                   </div>
                 </div>
                 <div className="text-center" >
-                  <div className="admin_dashboard_cards_user_type">
+                  <div className="admin_dashboard_cards_user_type fs-6">
                     <p>User</p>
                   </div>
                   <div className="admin_dashboard_cards_count">
@@ -112,14 +124,14 @@ function AdminDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="admin_dashboard_cards">
+              <div className="admin_dashboard_cards_new">
                 <div>
-                  <div className="admin_dashboard_cards_icon">
+                  <div className="admin_dashboard_cards_icon mx-1">
                   <i class="ri-movie-2-line"></i>
                   </div>
                 </div>
                 <div className="text-center" >
-                  <div className="admin_dashboard_cards_user_type">
+                  <div className="admin_dashboard_cards_user_type fs-6">
                     <p>Movies</p>
                   </div>
                   <div className="admin_dashboard_cards_count">
@@ -127,14 +139,14 @@ function AdminDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="admin_dashboard_cards">
+              <div className="admin_dashboard_cards_new">
                 <div>
-                  <div className="admin_dashboard_cards_icon">
+                  <div className="admin_dashboard_cards_icon mx-1">
                   <i class="ri-ball-pen-line"></i>
                   </div>
                 </div>
                 <div className="text-center" >
-                  <div className="admin_dashboard_cards_user_type">
+                  <div className="admin_dashboard_cards_user_type fs-6">
                     <p>Complaints</p>
                   </div>
                   <div className="admin_dashboard_cards_count">

@@ -6,7 +6,6 @@ import axiosInstance from "../Constants/BaseUrl";
 import SubscriptionBanner from "./SubscriptionBanner";
 import GenreCards from "./GenreCards";
 
-
 function UserHome() {
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ function UserHome() {
         console.log(res);
         if (res.data.status === 200) {
           setUserDetails(res.data.data);
-          setGenre(res.data.data.preferredGenre)
+          setGenre(res.data.data.preferredGenre);
         } else {
           console.log("Failed to fetch cast data");
         }
@@ -40,14 +39,12 @@ function UserHome() {
   return (
     <div>
       <UserLandingBanner />
-      
+
       <UserVideoCards title="Recently Played" />
       {/* <GenreCall/> */}
       <div className="container">
         <div className="row">
-          {
-            genre.length?<h4 className="mt-3 text-light" >Our Genres</h4>:''
-          }
+          {genre.length ? <h4 className="mt-3 text-light">Our Genres</h4> : ""}
           {genre.length
             ? genre.map((genre) => {
                 return (

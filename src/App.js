@@ -62,7 +62,7 @@ function App() {
         <Route path='/view_my_plans' element={[<UserNavbar/>,<UserViewMyPlans/>]} />
         <Route path='/user_chat' element={[<UserNavbar/>,<UserChat/>]} />
         <Route path='/user_single_chat/:id/:type' element={[<UserNavbar/>,<UserChat/>]} />
-        <Route path='/user_add_review/:id' element={[<UserNavbar/>,<UserAddReview />]} />
+        <Route path='/user_add_review/:id' element={[<UserNavbar/>,<UserAddReview />]} /> 
 
 
         {/* Support Routes  */}
@@ -79,6 +79,8 @@ function App() {
         <Route path='/support_view_reviews/:id' element={[<SupportCall type='view_review' />]} />
         <Route path='/support_view_users' element={[<SupportCall type='view_users' />]} />
         <Route path='/support_chat' element={<SupportViewReports/>} />
+        <Route path='/support_view_recently_played_movies/:id' element={[<SupportCall type='recently_played_movies' />]} />
+
 
         {/* Admin Routes */}
         <Route path='/admin_login' element={<AdminLogin/>} />

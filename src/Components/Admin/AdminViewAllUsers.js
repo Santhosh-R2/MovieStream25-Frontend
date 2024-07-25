@@ -80,7 +80,7 @@ function AdminViewAllUsers() {
                             {index < user.preferredLanguages.length - 1 && ", "}
                           </span>
                         ))
-                      : ""}
+                      : ""} 
                   </td>
                   <td className="d-flex" >
                     <button

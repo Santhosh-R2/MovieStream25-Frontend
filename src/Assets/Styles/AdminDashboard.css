@@ -33,6 +33,15 @@
     align-items: center;
 }
 
+.admin_dashboard_cards_new{
+    height: 27vh;
+    width: 25%;
+    background-color: #2A2A2A ;
+    border-radius: 15px;
+    padding: 20px;
+    /* display: flex;
+    justify-content: space-evenly; */
+}
 .admin_dashboard_cards{
     height: 20vh;
     width: 25%;

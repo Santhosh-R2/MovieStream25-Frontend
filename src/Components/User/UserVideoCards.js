@@ -78,7 +78,7 @@ function UserVideoCards({ title, isSmall }) {
       .post(`/getMoviesByGenre/${title}`)
       .then((res) => {
         if (res.data.status === 200) {
-          setMovieData(res.data.data);
+          setMovieData(res.data.data.reverse());
         } else {
           console.log("Failed to fetch cast data");
         }
