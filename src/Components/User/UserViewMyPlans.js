@@ -11,7 +11,7 @@ function UserViewMyPlans() {
     }
   });
 
-  const [plans, setPlans] = useState([]);
+  const [plan, setPlans] = useState({subId:{}});
   const uId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function UserViewMyPlans() {
         if (res.data.status === 200) {
           setPlans(res.data.data);
         } else {
+          setPlans(null)
           console.log("Failed to fetch cast data");
         }
       })
@@ -29,6 +30,8 @@ function UserViewMyPlans() {
         console.log("Failed to fetch cast data");
       });
   }, []);
+
+  console.log(plan);
 
   const handleDelete = (movieId) => {
     axiosInstance
@@ -51,8 +54,8 @@ function UserViewMyPlans() {
 
   return (
     <div className="user_view_subscription">
-      {plans.length > 0 ? (
-        <div className="container">
+      {
+        plan!=null?<div className="container">
           <div className="row">
             <div className="col-12">
               <p className="subscription_head">
@@ -65,22 +68,21 @@ function UserViewMyPlans() {
             </div>
           </div>
           <div className="row mt-5 ">
-            {plans.map((plan) => {
-              return (
+            {/* {plans.map((plan) => { */}
                 <div className="col-3">
                   <div className="subscription_cards">
                     <p className="subscription_card_title">
-                      {plan.subId.title}
+                      {plan.subId?.title}
                     </p>
                     <p className="subscription_para">
-                      {plan.subId.description}
+                      {plan.subId?.description}
                     </p>
                     <p className="subscription_head mt-2 mb-2">
                       ₹ {plan.subId.price}{" "}
                       <span className="subscription_para fs-6">
-                        /{plan.subId.noOfMonth} month
+                        /{plan.subId?.noOfMonth} month
                       </span>
-                      <span className="subscription_para fs-6"> - 1 month</span>
+                      <p className="subscription_para fs-6 text-danger"> Expires in {plan?.remainingDays} days</p>
                     </p>
                     <div className="user_subscription_actions">
                       {/* <button className="btn bg_red text-light" onClick={()=>{handleDelete(plan._id)}}>
@@ -89,15 +91,15 @@ function UserViewMyPlans() {
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              {/* );
+            })} */}
           </div>
-        </div>
-      ) : (
-        <div className="no_data_found">
-          <p>No Active Plans</p>
-        </div>
-      )}
+        </div>:<div className="no_data_found">
+            <p>No Subscription Plans</p>
+          </div>
+      }
+        
+    
     </div>
   );
 }

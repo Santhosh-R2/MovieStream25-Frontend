@@ -23,7 +23,7 @@ function UserChatBox() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddMembersModalOpen, setIsAddMembersModalOpen] = useState(false);
-  const [groupMembers, setGroupMembers] = useState([]);
+  const [groupMembers, setGroupMembers] = useState([]); 
 
   useEffect(() => {
     if (chatBodyRef.current) {
@@ -45,7 +45,7 @@ function UserChatBox() {
         });
     } else if (type === "users") {
       axiosInstance
-        .post(`viewChatBetweenUsers`, { fromId: fId, toId: id })
+        .post(`viewChatBetweenUsers`, { fromId: fId, toId: id,loggedInUserId:fId })
         .then((res) => {
           if (res.data.status === 200) {
             setMessageList(res.data.data);
@@ -101,7 +101,7 @@ function UserChatBox() {
     }
   }, [id, type]);
 
-  console.log("members", groupMembers);
+  console.log("msg", messageList);
 
   const handleSupportSend = (e) => {
     e.preventDefault();
@@ -299,8 +299,25 @@ function UserChatBox() {
       });
   }
 
-  console.log("group", userDetalis);
+  function clearChat() {
+    axiosInstance
+      .post(`clearChatBetweenUsers`, { userId: fId,chatPartnerId:id })
+      .then((res) => {
+        if(res.data.status==200){
+          console.log(res);
+        toast('Chat Cleared')
+        setMessageList([]); 
+        }
+        
+      })
+      .catch(() => {
+        console.log("Failed to Add Case");
+      });
+  }
+
+  // console.log("group", userDetalis);
   console.log("user", id);
+  console.log("user2", fId);
 
   const formatLocalTime = (utcTime) => {
     const date = new Date(utcTime);
@@ -395,7 +412,9 @@ function UserChatBox() {
       ) : type === "users" ? (
         <div className="advocate_chat">
           <div className="adv_chat_container">
-            <div className="chat-header">
+            <div className="chat-header d-flex justify-content-between">
+              
+              <div>
               <img
                 src={`${imageUrl}/${
                   userDetalis.img ? userDetalis.img.filename : ""
@@ -404,7 +423,39 @@ function UserChatBox() {
                 alt="Advocate"
               />
               <span className="fs-5 px-3 text-light">{userDetalis.name}</span>
+              </div>
+              
+            
+            
+              <div
+                className="dropdown-wrapper"
+                style={{ position: "relative" }}
+              >
+                <i
+                  className="ri-more-2-fill text-light"
+                  onClick={toggleDropdown}
+                  aria-expanded={isDropdownOpen}
+                  aria-haspopup="true"
+                ></i>
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu show" id="intern_dropdown">
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        onClick={clearChat}
+                      >
+                        Clear Chat
+                      </button>
+                    </li>
+
+                  </ul>
+                )}
+              </div>
+            
+            
             </div>
+            
+            
             <div className="adv_chat-body" ref={chatBodyRef}>
               {messageList.length ? (
                 messageList.map((msg) => {
