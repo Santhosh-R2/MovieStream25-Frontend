@@ -77,6 +77,8 @@ function UserVideoCards({ title, isSmall }) {
     axiosInstance
       .post(`/getMoviesByGenre/${title}`)
       .then((res) => {
+        console.log(res);
+        
         if (res.data.status === 200) {
           setMovieData(res.data.data.reverse());
         } else {

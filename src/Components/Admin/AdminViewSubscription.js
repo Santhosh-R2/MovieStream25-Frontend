@@ -65,11 +65,11 @@ function AdminViewSubscription() {
               <p className="subscription_head mt-2 mb-2">
                 ₹ {plan.price} <span className="subscription_para fs-6">/{plan.noOfMonth} month</span>
               </p>
-              <div className="user_subscription_actions">
+              <div className="d-flex">
                 <Link to={`/admin_edit_subscription_plan/${plan._id}`}>
                 <button className="btn bg_red text-light">Edit</button>
                 </Link>
-                <button type='button' className="btn bg_red text-light mx-2" onClick={()=>{handleRemove(plan._id)}} >Delete</button>
+                <button type='button' className="btn bg_red text-light mx-1" onClick={()=>{handleRemove(plan._id)}} >Delete</button>
 
               </div>
             </div>

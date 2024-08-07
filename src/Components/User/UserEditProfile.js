@@ -33,7 +33,6 @@ function UserEditProfile() {
       .then((res) => {
         if (res.data.status === 200) {
           const userData = res.data.data;
-          // Format the date to YYYY-MM-DD if it's not already in that format
           if (userData.dob) {
             userData.dob = new Date(userData.dob).toISOString().split('T')[0];
           }
@@ -48,9 +47,11 @@ function UserEditProfile() {
       });
   }, [uid]);
 
+  console.log(formData);
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
 
     // Add validation for pincode and contact
     if (!/^\d{6}$/.test(formData.pincode)) {
@@ -62,11 +63,10 @@ function UserEditProfile() {
       return;
     }
 
-    axiosMultipartInstance.post(`/editUserById/${uid}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    console.log(formData);
+
+
+    axiosMultipartInstance.post(`/editUserById/${uid}`, formData)
       .then((res) => {
         if (res.data.status === 200) {
           toast.success("Profile Updated Successfully");
@@ -80,6 +80,8 @@ function UserEditProfile() {
         toast.error("Something went wrong");
       });
   };
+
+  
 
   return (
     <div>
@@ -195,14 +197,14 @@ function UserEditProfile() {
                           required
                         />
                       </div>
-                      {/* <div className="col-6 user_reg_input_grp mt-2">
+                      <div className="col-6 user_reg_input_grp mt-2">
                         <label><small>Upload Image</small></label>
                         <input
                           type="file"
                           name="img"
                           onChange={handleChange}
                         />
-                      </div> */}
+                      </div>
                       <div className="col-12 mt-4">
                         <button type="submit" className="btn bg_red">
                           Save Changes

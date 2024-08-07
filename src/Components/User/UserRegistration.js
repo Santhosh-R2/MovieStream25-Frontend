@@ -148,7 +148,7 @@ function UserRegistration() {
                       <input
                         type="radio"
                         name="gender"
-                        value="male"
+                        value="Male"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
@@ -156,7 +156,7 @@ function UserRegistration() {
                       <input
                         type="radio"
                         name="gender"
-                        value="female"
+                        value="Female"
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />

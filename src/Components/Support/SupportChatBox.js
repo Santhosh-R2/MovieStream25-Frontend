@@ -7,8 +7,7 @@ import { imageUrl } from "../Constants/Image_Url";
 function SupportChatBox() {
   const { id } = useParams();
 
-  const [messageList, setMessageList] = useState([
-  ]);
+  const [messageList, setMessageList] = useState([]);
   const [userDetalis, setUserDetails] = useState({
     img: { filename: "" },
   });
@@ -57,7 +56,7 @@ function SupportChatBox() {
         from: "support",
         to: "users",
         support: true,
-        toId:id
+        toId: id,
       })
       .then((res) => {
         // console.log(res);
@@ -79,20 +78,23 @@ function SupportChatBox() {
 
   const formatLocalTime = (utcTime) => {
     const date = new Date(utcTime);
-    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const localDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
     return localDate.toISOString().slice(11, 16);
   };
-
 
   const renderMessageContent = (message) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = message.split(urlRegex);
-    return parts.map((part, index) => 
+    return parts.map((part, index) =>
       urlRegex.test(part) ? (
-        <Link 
-          key={index} 
-          to={`/support_view_single_movie/${part.split('/movie_streaming/user-view-single-movie/')[1]}`} 
-          rel="noopener noreferrer" 
+        <Link
+          key={index}
+          to={`/support_view_single_movie/${
+            part.split("/movie_streaming/user-view-single-movie/")[1]
+          }`}
+          rel="noopener noreferrer"
           className="nav-link text-decoration-underline"
         >
           {part}
@@ -103,51 +105,46 @@ function SupportChatBox() {
     );
   };
 
-
-
   console.log(messageList);
 
   return (
     <div>
       <div className="advocate_chat mt-2">
-      <div className="chat-header">
-              <img
-                src={`${imageUrl}/${userDetalis.img.filename}`}
-                className="img-fluid"
-                alt="Advocate"
-              />
-              <span className="fs-5 px-3 text-light">{userDetalis.name}</span>
-            </div>
+        <div className="chat-header">
+          <img
+            src={`${imageUrl}/${userDetalis.img.filename}`}
+            className="img-fluid"
+            alt="Advocate"
+          />
+          <span className="fs-5 px-3 text-light">{userDetalis.name}</span>
+        </div>
         {messageList.length ? (
           <div className="adv_chat_container">
-            
-            <div className="adv_chat-body p-5" id='min-80' ref={chatBodyRef}>
+            <div className="adv_chat-body p-5" id="min-80" ref={chatBodyRef}>
               {messageList.map((msg) => (
                 <div>
                   <div
-                      key={msg.id}
+                    key={msg.id}
                     className={`chat-message ${
-                      msg.from == "users"
-                        ? "received"
-                        : "sent"
+                      msg.from == "users" ? "received" : "sent"
                     }`}
                   >
                     <div className="message-header">
                       <span className="username">
                         <small>
-                          {msg.from == "users"
-                              ? msg.fromId.name
-                              : 'Support'}
+                          {msg.from == "users" ? msg.fromId.name : "Support"}
                         </small>
                       </span>
                       <span className="timestamp text-light">
                         {msg.createdAt.slice(0, 10)}
                       </span>
-                    </div> 
+                    </div>
                     {/* <p className="message-content">{msg.msg}</p> */}
-                    <p className="text-wrap message-content">{renderMessageContent(msg.msg)}</p>
-                    <div className="timestamp text-light d-flex justify-content-end" >
-                    {formatLocalTime(msg.createdAt)}
+                    <p className="text-wrap message-content">
+                      {renderMessageContent(msg.msg)}
+                    </p>
+                    <div className="timestamp text-light d-flex justify-content-end">
+                      {formatLocalTime(msg.createdAt)}
                     </div>
                   </div>
                 </div>
@@ -155,13 +152,11 @@ function SupportChatBox() {
             </div>
           </div>
         ) : (
-          <div className="no_chat_container text-light " id='min-80'>
+          <div className="no_chat_container text-light " id="min-80">
             <h3>Please start the conversation.</h3>
           </div>
         )}
-        <form
-          onSubmit={handleSend}
-        >
+        <form onSubmit={handleSend}>
           <div className="chat-input">
             <input
               type="text"

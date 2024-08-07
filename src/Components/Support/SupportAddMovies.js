@@ -1,13 +1,16 @@
+import * as yup from "yup";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import img from "../../Assets/Images/complaintBanner.png";
 import { AddMovieSchema } from "../Constants/Schema";
-import axiosInstance from "../Constants/BaseUrl";
 import axiosMultipartInstance from "../Constants/FormDataUrl";
 import Lottie from "lottie-react";
 import loading from "../../Assets/Json/loading.json";
+
+// Define the allowed video types
+const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/x-matroska", "video/avi"];
 
 function SupportAddMovies() {
   const navigate = useNavigate();
@@ -16,7 +19,7 @@ function SupportAddMovies() {
     if (localStorage.getItem("supportId") == null) {
       navigate("/");
     }
-  });
+  }, [navigate]);
 
   const [isToastVisible, setToastVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,11 +65,9 @@ function SupportAddMovies() {
         formData.append(key, values[key]);
       });
 
-      console.log(formData);
       axiosMultipartInstance
         .post("/createMovie", formData)
         .then((res) => {
-          console.log(res);
           setIsLoading(false);
           if (res.data.status === 200) {
             if (!isToastVisible) {
@@ -86,7 +87,7 @@ function SupportAddMovies() {
           }
         })
         .catch(() => {
-          setIsLoading(false); // Set loading state to false
+          setIsLoading(false);
           if (!isToastVisible) {
             setToastVisible(true);
             toast.error("Failed to Add Movie", {
@@ -200,7 +201,7 @@ function SupportAddMovies() {
                           >
                             <option value="">Language</option>
                             {languages.map((e) => {
-                              return <option value={e.name}>{e.name}</option>;
+                              return <option key={e.name} value={e.name}>{e.name}</option>;
                             })}
                           </select>
                           {touched.language && errors.language && (
@@ -305,17 +306,15 @@ function SupportAddMovies() {
                             onBlur={handleBlur}
                           />
                           {touched.trailer && errors.trailer && (
-                            <span className="text-danger">
-                              {errors.trailer}
-                            </span>
+                            <span className="text-danger">{errors.trailer}</span>
                           )}
                         </div>
                         <div className="col-6 user_reg_input_grp mt-2">
-                          <label>IMDB Rating</label>
+                          <label>IMDb Link</label>
                           <input
-                            type="number"
+                            type="text"
                             name="imdb"
-                            placeholder="IMDB Rating"
+                            placeholder="IMDb Link"
                             value={values.imdb}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -324,12 +323,10 @@ function SupportAddMovies() {
                             <span className="text-danger">{errors.imdb}</span>
                           )}
                         </div>
-                        <div className="col-6 user_reg_input_grp mt-2">
-                          <label>Description</label>
+                        <div className="col-12 user_reg_input_grp mt-2">
                           <textarea
                             name="description"
-                            placeholder="Enter Your Description"
-                            rows="4"
+                            placeholder="Description"
                             value={values.description}
                             onChange={handleChange}
                             onBlur={handleBlur}

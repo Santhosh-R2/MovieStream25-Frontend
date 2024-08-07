@@ -5,11 +5,11 @@ const passwordRule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 const today = new Date();
 const maxDate = today.toISOString().split("T")[0];
 
-// Define the allowed image types
+// Define the allowed image types 
 const SUPPORTED_IMAGE_FORMATS = ["image/jpeg", "image/png", "image/gif"];
 
 // Define the allowed video types
-const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/mkv", "video/avi"];
+const SUPPORTED_VIDEO_FORMATS = ["video/mp4", "video/x-matroska", "video/avi"];
 
 const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth() + 1;
@@ -123,45 +123,89 @@ export const AdminSchema = yup.object().shape({
   password: yup.string().required("Required"),
 });
 
+// export const AddMovieSchema = yup.object().shape({
+//   name: yup
+//     .string()
+//     .min(2, "Enter minimum 2 characters")
+//     .max(100, "Maximum 100 characters are allowed")
+//     .required("Name is required"),
+//   genre: yup
+//     .string()
+//     .min(2, "Enter minimum 2 characters")
+//     .max(30, "Maximum 30 characters are allowed")
+//     .required("Genre is required"),
+//   director: yup
+//     .string()
+//     .min(2, "Enter minimum 2 characters")
+//     .max(50, "Maximum 50 characters are allowed")
+//     .required("Director is required"),
+//   scriptWriter: yup
+//     .string()
+//     .min(2, "Enter minimum 2 characters")
+//     .max(50, "Maximum 50 characters are allowed")
+//     .required("Script Writer is required"),
+//   duration: yup
+//     .string()
+//     .matches(/^\d{2}:\d{2}$/, "Duration must be in the format HH:MM")
+//     .required("Duration is required"),
+//   releaseDate: yup
+//     .date()
+//     .max(new Date(), "Release Date cannot be in the future")
+//     .required("Release Date is required"),
+//   description: yup
+//     .string()
+//     .min(10, "Enter minimum 10 characters")
+//     .max(500, "Maximum 500 characters are allowed")
+//     .required("Description is required"),
+//   language: yup
+//     .string()
+//     .min(2, "Enter minimum 2 characters")
+//     .max(30, "Maximum 30 characters are allowed")
+//     .required("Language is required"),
+//   thumbnail: yup
+//   .mixed()
+//   .required("Please select an image")
+//   .test(
+//     "fileType",
+//     "Unsupported file format",
+//     (value) =>
+//       !value || (value && SUPPORTED_IMAGE_FORMATS.includes(value.type))
+//   ),
+
+//   video: yup
+//     .mixed()
+//     .required("Please select a video file")
+//     .test(
+//       "fileType",
+//       "Unsupported file format",
+//       (value) =>
+//         !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
+//     ),
+//   trailer: yup
+//     .mixed()
+//     .required("Please select a video file")
+//     .test(
+//       "fileType",
+//       "Unsupported file format",
+//       (value) =>
+//         !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
+//     ),
+//     imdb: yup
+//     .string()
+//     .matches(/^\d(\.\d)?$|10(\.0)?$/, "IMDB rating must be a number between 0 and 10 with a single decimal place")
+//     .required("IMDB rating is required"),
+//   adults: yup.boolean().required("Required"),
+// });
+
 export const AddMovieSchema = yup.object().shape({
-  name: yup
-    .string()
-    .min(2, "Enter minimum 2 characters")
-    .max(100, "Maximum 100 characters are allowed")
-    .required("Name is required"),
-  genre: yup
-    .string()
-    .min(2, "Enter minimum 2 characters")
-    .max(30, "Maximum 30 characters are allowed")
-    .required("Genre is required"),
-  director: yup
-    .string()
-    .min(2, "Enter minimum 2 characters")
-    .max(50, "Maximum 50 characters are allowed")
-    .required("Director is required"),
-  scriptWriter: yup
-    .string()
-    .min(2, "Enter minimum 2 characters")
-    .max(50, "Maximum 50 characters are allowed")
-    .required("Script Writer is required"),
-  duration: yup
-    .string()
-    .matches(/^\d{2}:\d{2}$/, "Duration must be in the format HH:MM")
-    .required("Duration is required"),
-  releaseDate: yup
-    .date()
-    .max(new Date(), "Release Date cannot be in the future")
-    .required("Release Date is required"),
-  description: yup
-    .string()
-    .min(10, "Enter minimum 10 characters")
-    .max(500, "Maximum 500 characters are allowed")
-    .required("Description is required"),
-  language: yup
-    .string()
-    .min(2, "Enter minimum 2 characters")
-    .max(30, "Maximum 30 characters are allowed")
-    .required("Language is required"),
+  name: yup.string().required('Movie name is required'),
+  genre: yup.string().required('Genre is required'),
+  director: yup.string().required('Director is required'),
+  scriptWriter: yup.string().required('Script Writer is required'),
+  duration: yup.string().required('Duration is required'),
+  releaseDate: yup.date().required('Release date is required'),
+  description: yup.string().required('Description is required'),
+  language: yup.string().required('Language is required'),
   thumbnail: yup
   .mixed()
   .required("Please select an image")
@@ -171,41 +215,16 @@ export const AddMovieSchema = yup.object().shape({
     (value) =>
       !value || (value && SUPPORTED_IMAGE_FORMATS.includes(value.type))
   ),
-  // .test(
-  //   "fileSize",
-  //   "Image size is too large (max 10 MB)",
-  //   (value) => !value || (value && value.size <= 10 * 1024 * 1024)
-  // ) //validation for maximum file size (5 MB)
-  // .test(
-  //   "fileType",
-  //   "Unsupported file format",
-  //   (value) =>
-  //     !value ||
-  //     (value && ["image/jpeg", "image/png", "image/gif"].includes(value.type))
-  // ),
-  video: yup
-    .mixed()
-    .required("Please select a video file")
-    .test(
-      "fileType",
-      "Unsupported file format",
-      (value) =>
-        !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
-    ),
-  trailer: yup
-    .mixed()
-    .required("Please select a video file")
-    .test(
-      "fileType",
-      "Unsupported file format",
-      (value) =>
-        !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
-    ),
+  video: yup.mixed()
+    .test('fileSize', 'File is too large', value => !value || (value && value.size <= 3 * 1024 * 1024 * 1024)) 
+    .test('fileType', 'Unsupported file format', value => !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))),
+  trailer: yup.mixed()
+    .test('fileSize', 'File is too large', value => !value || (value && value.size <= 1 * 1024 * 1024 * 1024)) 
+    .test('fileType', 'Unsupported file format', value => !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))),
     imdb: yup
-    .string()
-    .matches(/^\d(\.\d)?$|10(\.0)?$/, "IMDB rating must be a number between 0 and 10 with a single decimal place")
-    .required("IMDB rating is required"),
-  adults: yup.boolean().required("Required"),
+        .string()
+        .matches(/^\d(\.\d)?$|10(\.0)?$/, "IMDB rating must be a number between 0 and 10 with a single decimal place")
+        .required("IMDB rating is required"),
 });
 
 export const AddCastSchema = yup.object().shape({
