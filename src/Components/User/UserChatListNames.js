@@ -17,7 +17,7 @@ function UserChatListNames({ userType }) {
   const [groupTitle, setgroupTitle] = useState("");
   const [groupId, setGroupId] = useState("");
   const [viewChatModal, setViewChatModal] = useState(false);
-  const [viewSubmit, setViewSubmit] = useState(false);
+  const [viewSubmit, setViewSubmit] = useState(false); 
 
   const id = localStorage.getItem("userId");
 

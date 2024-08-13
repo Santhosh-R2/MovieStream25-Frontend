@@ -195,6 +195,8 @@ function UserChatBox() {
             status: false,
           }));
           setIsDropdownOpen(false); // Close dropdown after successful action
+          navigate('/user_chat')
+          window.location.reload()
         } else {
           toast.error("Failed to close discussion");
         }
