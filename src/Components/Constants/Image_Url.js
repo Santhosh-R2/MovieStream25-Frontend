@@ -4,5 +4,5 @@
 
 //server
 
-export const imageUrl= 'http://hybrid.srishticampus.in:4024';
+export const imageUrl= 'https://hybrid.srishticampus.in:4024';
 
